@@ -13,11 +13,11 @@ import Message from './Message';
  * A better explanation of react-router is available here:
  * https://github.com/rackt/react-router/blob/latest/docs/Introduction.md
  */
-const App = ({children}) => {
+const App = ({ children }) => {
   return (
     <div>
       <Helmet
-        title="React"
+        title="Book Trader"
         titleTemplate="%s - Universal React Example"
       />
       <Navigation />

@@ -29,6 +29,16 @@ export function dummyData() {
   });
 }
 
+export function getBooks(req, res) {
+  Book.find().exec((err, books) => {
+    if (err) {
+      res.status(500).send(err);
+    }
+    res.json({ books });
+  });
+}
+
 export default {
-  dummyData
+  dummyData,
+  getBooks
 };

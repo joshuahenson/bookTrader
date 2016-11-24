@@ -1,7 +1,9 @@
 import users from './users';
+import books from './books';
 
-export { users };
+export { users, books };
 
 export default {
-  users
+  users,
+  books
 };

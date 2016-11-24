@@ -6,6 +6,7 @@ import unsupportedMessage from '../db/unsupportedMessage';
 import { controllers, passport as passportConfig } from '../db';
 
 const usersController = controllers && controllers.users;
+const booksController = controllers && controllers.books;
 
 export default (app) => {
   // user routes
@@ -15,6 +16,13 @@ export default (app) => {
     app.post('/logout', usersController.logout);
   } else {
     console.warn(unsupportedMessage('users routes'));
+  }
+
+  // book routes
+  if (booksController) {
+    app.get('/getBooks', booksController.getBooks);
+  } else {
+    console.warn(unsupportedMessage('books routes'));
   }
 
   if (passportConfig && passportConfig.google) {
