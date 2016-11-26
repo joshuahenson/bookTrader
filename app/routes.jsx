@@ -5,6 +5,7 @@ import App from './containers/App';
 import Main from './components/Main';
 import About from './components/About';
 import Auth from './containers/Auth';
+import Books from './containers/Books';
 
 /*
  * @param {Redux Store}
@@ -24,7 +25,7 @@ export default (store) => {
   // };
 
   const redirectAuth = (nextState, replace, callback) => {
-    const { user: { authenticated }} = store.getState();
+    const { user: { authenticated } } = store.getState();
     if (authenticated) {
       replace({
         pathname: '/'
@@ -37,6 +38,7 @@ export default (store) => {
       <IndexRoute component={Main} />
       <Route path="login" component={Auth} onEnter={redirectAuth} />
       <Route path="about" component={About} />
+      <Route path="books" component={Books} />
     </Route>
   );
 };

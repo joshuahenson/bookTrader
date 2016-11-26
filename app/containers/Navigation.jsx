@@ -16,29 +16,27 @@ const Navigation = ({ user, logOut }) => {
           <Toggle />
         </Header>
         <Collapse>
-          { user.authenticated ? ([
-            <Nav key="left">
-              <LinkContainer to="/about">
-                <NavItem>About</NavItem>
-              </LinkContainer>
-            </Nav>,
+          <Nav key="left">
+            <LinkContainer to="/about">
+              <NavItem>About</NavItem>
+            </LinkContainer>
+            <LinkContainer to="/books">
+              <NavItem>Books</NavItem>
+            </LinkContainer>
+          </Nav>
+          { user.authenticated ?
             <Nav pullRight key="right">
               <LinkContainer active={false} onClick={logOut} to="/">
                 <NavItem>Logout</NavItem>
               </LinkContainer>
             </Nav>
-          ]) : ([
-            <Nav key="left">
-              <LinkContainer to="/about">
-                <NavItem>About</NavItem>
-              </LinkContainer>
-            </Nav>,
+          :
             <Nav pullRight key="right">
               <LinkContainer to="/login">
                 <NavItem>Login</NavItem>
               </LinkContainer>
             </Nav>
-          ])}
+          }
         </Collapse>
       </Navbar>
     );
