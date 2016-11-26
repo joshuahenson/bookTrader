@@ -60,9 +60,6 @@ Register.propTypes = {
 
 Register = reduxForm({
   form: 'register',
-  fields: [
-    'email', 'password', 'name'
-  ],
   validate
 })(Register);
 
