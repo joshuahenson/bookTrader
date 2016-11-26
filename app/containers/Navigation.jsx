@@ -26,6 +26,9 @@ const Navigation = ({ user, logOut }) => {
           </Nav>
           { user.authenticated ?
             <Nav pullRight key="right">
+              <LinkContainer to="/add_book">
+                <NavItem>Add Book</NavItem>
+              </LinkContainer>
               <LinkContainer active={false} onClick={logOut} to="/">
                 <NavItem>Logout</NavItem>
               </LinkContainer>

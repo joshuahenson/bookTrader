@@ -1,3 +1,4 @@
+import { search } from 'google-books-search';
 import Book from '../models/book';
 
 export function dummyData() {
@@ -38,7 +39,17 @@ export function getBooks(req, res) {
   });
 }
 
+export function findBook(req, res) {
+  search(req.body.title, (err, results) => {
+    if (err) {
+      console.error(err);
+    }
+    res.json({ results });
+});
+}
+
 export default {
   dummyData,
-  getBooks
+  getBooks,
+  findBook
 };

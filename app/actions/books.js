@@ -21,3 +21,23 @@ export function getBooks() {
       });
   };
 }
+
+export function displayBookSearch(results) {
+  return {
+    type: types.DISPLAY_BOOK_SEARCH,
+    results
+  };
+}
+
+export function findBookRequest(title) {
+  return (dispatch) => {
+    return axios.post('/findBook', { title })
+      .then(res => dispatch(displayBookSearch(res.data.results)))
+      .catch(() => {
+        dispatch(generalErrorMessage());
+        setTimeout(() => {
+          dispatch(dismissMessage());
+        }, 5000);
+      });
+  };
+}

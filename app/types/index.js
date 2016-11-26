@@ -11,3 +11,4 @@ export const IS_WAITING = 'IS_WAITING';
 export const IS_NOT_WAITING = 'IS_NOT_WAITING';
 
 export const ADD_BOOKS = 'ADD_BOOKS';
+export const DISPLAY_BOOK_SEARCH = 'DISPLAY_BOOK_SEARCH';

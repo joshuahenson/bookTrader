@@ -21,6 +21,7 @@ export default (app) => {
   // book routes
   if (booksController) {
     app.get('/getBooks', booksController.getBooks);
+    app.post('/findBook', booksController.findBook);
   } else {
     console.warn(unsupportedMessage('books routes'));
   }
