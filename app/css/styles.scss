@@ -1,10 +1,49 @@
 // compileCompressed: ../../public/assets/styles/styles.css
 
-.book-overview {
-  display: inline-block;
-  width: 350px;
+.book-results {
+  padding: 20px;
+  height: 300px;
 
   img {
-    width: 250px;
+    max-height: 200px;
+  }
+
+  .btn-circle {
+    display: none;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+  }
+
+  &:hover .btn-circle {
+    display: block;
   }
 }
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+// 
+// .btn-circle.btn-lg {
+//   width: 50px;
+//   height: 50px;
+//   padding: 10px 16px;
+//   font-size: 18px;
+//   line-height: 1.33;
+//   border-radius: 25px;
+// }
+//
+// .btn-circle.btn-xl {
+//   width: 70px;
+//   height: 70px;
+//   padding: 10px 16px;
+//   font-size: 24px;
+//   line-height: 1.33;
+//   border-radius: 35px;
+// }

@@ -41,3 +41,23 @@ export function findBookRequest(title) {
       });
   };
 }
+
+export function addBook(id) {
+  return {
+    type: types.ADD_BOOK,
+    id
+  };
+}
+
+export function addBookRequest(thumbnail, title, author, userId, bookId) {
+  return (dispatch) => {
+    return axios.post('/addBook', { thumbnail, title, author, userId })
+      .then(dispatch(addBook(bookId)))
+      .catch(() => {
+        dispatch(generalErrorMessage());
+        setTimeout(() => {
+          dispatch(dismissMessage());
+        }, 5000);
+      });
+  };
+}

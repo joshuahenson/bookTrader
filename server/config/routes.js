@@ -22,6 +22,7 @@ export default (app) => {
   if (booksController) {
     app.get('/getBooks', booksController.getBooks);
     app.post('/findBook', booksController.findBook);
+    app.post('/addBook', booksController.addBook);
   } else {
     console.warn(unsupportedMessage('books routes'));
   }

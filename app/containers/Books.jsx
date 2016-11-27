@@ -7,8 +7,8 @@ const Books = ({ books }) => {
     <div>
       {books.map((book, index) => {
         return (
-          <div key={index} className="book-overview text-center">
-            <img alt={`Cover from ${book.title}`} src={book.cover} />
+          <div key={index} className="col-sm-6 col-md-4 col-lg-3 text-center book-results">
+            <img alt={book.title} src={book.thumbnail} />
             <h5>{book.title}</h5>
             <h6>{book.author}</h6>
           </div>
