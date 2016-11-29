@@ -61,3 +61,23 @@ export function addBookRequest(thumbnail, title, author, userId, bookId) {
       });
   };
 }
+
+export function addSelectedBook(book) {
+  return {
+    type: types.ADD_SELECTED_BOOK,
+    book
+  };
+}
+
+export function getBookRequest(bookId) {
+  return (dispatch) => {
+    return axios.get(`/getBook?id=${bookId}`)
+      .then(res => dispatch(addSelectedBook(res.data.book)))
+      .catch(() => {
+        dispatch(generalErrorMessage());
+        setTimeout(() => {
+          dispatch(dismissMessage());
+        }, 5000);
+      });
+  };
+}

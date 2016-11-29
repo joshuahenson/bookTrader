@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Books from '../components/Books';
-import { getBooks } from '../actions/books';
+import { getBooks, addSelectedBook } from '../actions/books';
 
-const AllBooks = ({ books }) => {
-  return <Books books={books} />;
+const AllBooks = ({ books, addSelectedBook }) => {
+  return <Books books={books} handleClick={addSelectedBook} />;
 };
 
 // Data that needs to be called before rendering the component on the server side.
@@ -13,7 +13,8 @@ AllBooks.need = [
 ];
 
 AllBooks.propTypes = {
-  books: PropTypes.array
+  books: PropTypes.array.isRequired,
+  addSelectedBook: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -22,4 +23,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { getBooks })(AllBooks);
+export default connect(mapStateToProps, { getBooks, addSelectedBook })(AllBooks);

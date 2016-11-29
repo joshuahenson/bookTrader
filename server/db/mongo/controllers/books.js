@@ -60,9 +60,19 @@ export function addBook(req, res) {
   });
 }
 
+export function getBook(req, res) {
+  Book.findById(req.query.id).exec((err, book) => {
+    if (err) {
+      res.status(500).send(err);
+    }
+    res.json({ book });
+  });
+}
+
 export default {
   dummyData,
   getBooks,
   findBook,
-  addBook
+  addBook,
+  getBook
 };
