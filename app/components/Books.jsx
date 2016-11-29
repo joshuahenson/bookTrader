@@ -1,6 +1,4 @@
 import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { getBooks } from '../actions/books';
 
 const Books = ({ books }) => {
   return (
@@ -18,19 +16,8 @@ const Books = ({ books }) => {
   );
 };
 
-// Data that needs to be called before rendering the component on the server side.
-Books.need = [
-  getBooks
-];
-
 Books.propTypes = {
   books: PropTypes.array
 };
 
-function mapStateToProps(state) {
-  return {
-    books: state.books.allBooks
-  };
-}
-
-export default connect(mapStateToProps, { getBooks })(Books);
+export default Books;

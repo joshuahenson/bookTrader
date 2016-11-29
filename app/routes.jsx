@@ -5,7 +5,7 @@ import App from './containers/App';
 import Main from './components/Main';
 import About from './components/About';
 import Auth from './containers/Auth';
-import Books from './containers/Books';
+import AllBooks from './containers/AllBooks';
 import AddBook from './containers/AddBook';
 
 /*
@@ -39,7 +39,7 @@ export default (store) => {
       <IndexRoute component={Main} />
       <Route path="login" component={Auth} onEnter={redirectAuth} />
       <Route path="about" component={About} />
-      <Route path="books" component={Books} />
+      <Route path="books" component={AllBooks} />
       <Route path="add_book" component={AddBook} onEnter={requireAuth} />
     </Route>
   );
