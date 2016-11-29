@@ -59,11 +59,11 @@ export function userIsNotWaiting() {
 }
 
 export function manualLogin(data, form) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(startSubmit(form));
 
     return axios.post('/login', data)
-      .then(response => {
+      .then((response) => {
         dispatch(loginSuccess(response.data.message, response.data.userName, response.data.userId));
         setTimeout(() => {
           dispatch(dismissMessage());
@@ -71,18 +71,18 @@ export function manualLogin(data, form) {
         dispatch(push('/'));
         dispatch(stopSubmit(form, {}));
       })
-      .catch(err => {
-        dispatch(stopSubmit(form, {_error: getMessage(err)}));
+      .catch((err) => {
+        dispatch(stopSubmit(form, { _error: getMessage(err) }));
       });
   };
 }
 
 export function signUp(data, form) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(startSubmit(form));
 
     return axios.post('/signup', data)
-      .then(response => {
+      .then((response) => {
         dispatch(signUpSuccess(response.data.message, response.data.userName, response.data.userId));
         setTimeout(() => {
           dispatch(dismissMessage());
@@ -90,14 +90,14 @@ export function signUp(data, form) {
         dispatch(push('/'));
         dispatch(stopSubmit(form, {}));
       })
-      .catch(err => {
-        dispatch(stopSubmit(form, {_error: getMessage(err)}));
+      .catch((err) => {
+        dispatch(stopSubmit(form, { _error: getMessage(err) }));
       });
   };
 }
 
 export function logOut() {
-  return dispatch => {
+  return (dispatch) => {
     return axios.post('/logout')
       .then(() => {
         dispatch(logoutSuccess());
