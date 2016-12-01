@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import { getBookRequest } from '../actions/books';
 
 // TODO: style and add larger image in place of thumbnail?
@@ -9,6 +10,7 @@ const BookDetail = ({ book }) => {
       <img alt={book.title} src={book.thumbnail} />
       <h5>{book.title}</h5>
       <h6>{book.author}</h6>
+      <Link to={`/books/${book.userId}`} className="btn btn-default">View all user&apos;s books</Link>
     </div>
   );
 };
@@ -17,7 +19,7 @@ const BookDetail = ({ book }) => {
 BookDetail.need = [params => getBookRequest.bind(null, params.bookId)()];
 
 BookDetail.propTypes = {
-  book: PropTypes.object.isRequired,
+  book: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
