@@ -5,6 +5,8 @@ const allBooks = (state = [], action) => {
   switch (action.type) {
     case types.ADD_BOOKS:
       return action.books;
+    case types.DELETE_BOOK:
+      return state.filter(book => book._id !== action.id);
     default:
       return state;
   }
@@ -40,6 +42,8 @@ const bookDetail = (state = {}, action) => {
   switch (action.type) {
     case types.ADD_SELECTED_BOOK:
       return action.book;
+    case types.DELETE_BOOK:
+      return {};
     default:
       return state;
   }

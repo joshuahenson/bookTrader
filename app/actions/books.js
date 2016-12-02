@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { push } from 'react-router-redux';
 import { dismissMessage, generalErrorMessage } from './messages';
 import * as types from '../types';
 
@@ -71,7 +72,7 @@ export function addSelectedBook(book) {
 
 export function getBookRequest(bookId) {
   return (dispatch) => {
-    return axios.get(`/getBook?id=${bookId}`)
+    return axios.get(`/getBook/${bookId}`)
       .then(res => dispatch(addSelectedBook(res.data.book)))
       .catch(() => {
         dispatch(generalErrorMessage());
@@ -79,5 +80,28 @@ export function getBookRequest(bookId) {
           dispatch(dismissMessage());
         }, 5000);
       });
+  };
+}
+
+export function deleteBook(id) {
+  return {
+    type: types.DELETE_BOOK,
+    id
+  };
+}
+
+export function deleteBookRequest(bookId) {
+  return (dispatch) => {
+    return axios.delete(`/getBook/${bookId}`)
+    .then(() => {
+      dispatch(push('/'));// TODO: push to dashboard when implemented
+      dispatch(deleteBook(bookId));
+    })
+    .catch(() => {
+      dispatch(generalErrorMessage());
+      setTimeout(() => {
+        dispatch(dismissMessage());
+      }, 5000);
+    });
   };
 }

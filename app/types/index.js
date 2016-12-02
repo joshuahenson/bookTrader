@@ -14,3 +14,4 @@ export const ADD_BOOKS = 'ADD_BOOKS';
 export const ADD_BOOK = 'ADD_BOOK';
 export const DISPLAY_BOOK_SEARCH = 'DISPLAY_BOOK_SEARCH';
 export const ADD_SELECTED_BOOK = 'ADD_SELECTED_BOOK';
+export const DELETE_BOOK = 'DELETE_BOOK';

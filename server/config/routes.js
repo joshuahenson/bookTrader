@@ -21,7 +21,9 @@ export default (app) => {
   // book routes
   if (booksController) {
     app.get('/getBooks', booksController.getBooks);
-    app.get('/getBook', booksController.getBook);
+    // app.get('/getBook', booksController.getBook);
+    app.get('/getBook/:id', booksController.getBook);
+    app.delete('/getBook/:id', booksController.deleteBook);
     app.post('/findBook', booksController.findBook);
     app.post('/addBook', booksController.addBook);
   } else {

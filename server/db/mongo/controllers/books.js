@@ -61,11 +61,22 @@ export function addBook(req, res) {
 }
 
 export function getBook(req, res) {
-  Book.findById(req.query.id).exec((err, book) => {
+  Book.findById(req.params.id).exec((err, book) => {
     if (err) {
       res.status(500).send(err);
     }
     res.json({ book });
+  });
+}
+
+export function deleteBook(req, res) {
+  Book.findByIdAndRemove(req.params.id, (err) => {
+    if (err) {
+      res.status(500).send(err);
+    }
+    if (!err) {
+      res.status(200).end();
+    }
   });
 }
 
@@ -74,5 +85,6 @@ export default {
   getBooks,
   findBook,
   addBook,
-  getBook
+  getBook,
+  deleteBook
 };
