@@ -58,7 +58,7 @@ export default function render(req, res) {
       isLogin: true,
       isWaiting: false,
       submittingGoogle: false,
-      userId: req.user ? req.user._id : null,
+      userId: req.user ? req.user._id.toString() : null,
       userName: req.user ? req.user.profile.name : null
     }
   }, history);
@@ -86,7 +86,7 @@ export default function render(req, res) {
    * given location.
    */
   const head = Helmet.rewind();
-  match({routes, location: req.url}, (err, redirect, props) => {
+  match({ routes, location: req.url }, (err, redirect, props) => {
     if (err) {
       res.status(500).json(err);
     } else if (redirect) {
