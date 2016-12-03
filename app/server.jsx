@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import Helmet from 'react-helmet';
+import serialize from 'serialize-javascript';
 import { renderToString } from 'react-dom/server';
 import { createMemoryHistory, match, RouterContext } from 'react-router';
 import { Provider } from 'react-redux';
@@ -123,7 +124,7 @@ export default function render(req, res) {
             </head>
             <body>
               <div id="app" class="container">${componentHTML}</div>
-              <script>window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};</script>
+              <script>window.__INITIAL_STATE__ = ${serialize(initialState, { isJSON: true })};</script>
               <script type="text/javascript" charset="utf-8" src="/assets/app.js"></script>
             </body>
           </html>
