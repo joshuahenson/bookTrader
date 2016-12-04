@@ -11,7 +11,7 @@ const Navigation = ({ user, logOut }) => {
       <Navbar fluid>
         <Header>
           <Brand>
-            <Link to="/">React</Link>
+            <Link to="/">Book Trader</Link>
           </Brand>
           <Toggle />
         </Header>
