@@ -3,7 +3,6 @@ import fs from 'fs';
 import path from 'path';
 import mongoose from 'mongoose';
 import { db } from './constants';
-import { dummyData } from './controllers/books'; // TODO: Remove dummy data
 
 mongoose.Promise = global.Promise;
 
@@ -20,7 +19,6 @@ export default () => {
     });
   };
   connect();
-  dummyData(); // TODO: Remove dummy data
 
   mongoose.connection.on('error', console.log);
   mongoose.connection.on('disconnected', connect);
