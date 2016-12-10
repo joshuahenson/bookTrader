@@ -22,7 +22,7 @@ let Login = ({ handleSubmit, submitting, toggleLoginMode, manualLogin }) => {
   return (
     <div>
       <div className="text-center">
-        <h2>Login with Email</h2>
+        <h2>Log in with Email</h2>
         <div>
           If you don&apos;t yet have an account. &nbsp;
           <a tabIndex="0" onClick={toggleLoginMode}>
