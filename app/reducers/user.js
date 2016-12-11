@@ -46,14 +46,15 @@ const authenticated = (
 };
 
 const userName = (
-  state = null,
+  state = '',
   action
 ) => {
   switch (action.type) {
     case types.LOGOUT_SUCCESS_USER:
-      return null;
+      return '';
     case types.LOGIN_SUCCESS_USER:
     case types.SIGNUP_SUCCESS_USER:
+    case types.UPDATE_SUCCESS_USER:
       return action.userName;
     default:
       return state;
@@ -61,12 +62,12 @@ const userName = (
 };
 
 const userId = (
-  state = null,
+  state = '',
   action
 ) => {
   switch (action.type) {
     case types.LOGOUT_SUCCESS_USER:
-      return null;
+      return '';
     case types.LOGIN_SUCCESS_USER:
     case types.SIGNUP_SUCCESS_USER:
       return action.userId;
@@ -89,13 +90,46 @@ const submittingGoogle = (
   }
 };
 
+const email = (
+  state = '',
+  action
+) => {
+  switch (action.type) {
+    case types.LOGOUT_SUCCESS_USER:
+      return '';
+    case types.LOGIN_SUCCESS_USER:
+    case types.SIGNUP_SUCCESS_USER:
+    case types.UPDATE_SUCCESS_USER:
+      return action.email;
+    default:
+      return state;
+  }
+};
+
+const picture = (
+  state = '',
+  action
+) => {
+  switch (action.type) {
+    case types.LOGOUT_SUCCESS_USER:
+      return '';
+    case types.LOGIN_SUCCESS_USER:
+    case types.SIGNUP_SUCCESS_USER:
+      return action.picture;
+    default:
+      return state;
+  }
+};
+
 const userReducer = combineReducers({
   authenticated,
   isLogin,
   isWaiting,
   submittingGoogle,
   userId,
-  userName
+  userName,
+  email,
+  picture
 });
 
 export default userReducer;

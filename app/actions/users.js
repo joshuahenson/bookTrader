@@ -11,22 +11,33 @@ export function googleLogin() {
   return { type: types.GOOGLE_LOGIN_USER };
 }
 
-export function loginSuccess(message, userName, userId) {
+export function loginSuccess(message, userName, userId, email) {
   return {
     type: types.LOGIN_SUCCESS_USER,
     message,
     userName,
-    userId
+    userId,
+    email
   };
 }
 
 // Sign Up Action Creators
-export function signUpSuccess(message, userName, userId) {
+export function signUpSuccess(message, userName, userId, email) {
   return {
     type: types.SIGNUP_SUCCESS_USER,
     message,
     userName,
-    userId
+    userId,
+    email
+  };
+}
+
+export function updateSuccess(userName, email) {
+  return {
+    type: types.UPDATE_SUCCESS_USER,
+    message: 'Your profile has been updated',
+    userName,
+    email
   };
 }
 
@@ -64,7 +75,8 @@ export function manualLogin(data, form) {
 
     return axios.post('/login', data)
       .then((response) => {
-        dispatch(loginSuccess(response.data.message, response.data.userName, response.data.userId));
+        const { message, userName, userId, email } = response.data;
+        dispatch(loginSuccess(message, userName, userId, email));
         setTimeout(() => {
           dispatch(dismissMessage());
         }, 3000);
@@ -83,11 +95,34 @@ export function signUp(data, form) {
 
     return axios.post('/signup', data)
       .then((response) => {
-        dispatch(signUpSuccess(response.data.message, response.data.userName, response.data.userId));
+        const { message, userName, userId, email } = response.data;
+        dispatch(signUpSuccess(message, userName, userId, email));
         setTimeout(() => {
           dispatch(dismissMessage());
         }, 3000);
         dispatch(push('/'));
+        dispatch(stopSubmit(form, {}));
+      })
+      .catch((err) => {
+        dispatch(stopSubmit(form, { _error: getMessage(err) }));
+      });
+  };
+}
+
+// this isn't very restful
+export function updateProfile(values, form, userId) {
+  const data = values;
+  data.userId = userId; // combine userId with form values for updating
+  return (dispatch) => {
+    dispatch(startSubmit(form));
+    return axios.post('/updateprofile', data)
+      .then((response) => {
+        const { userName, email } = response.data;
+        dispatch(updateSuccess(userName, email));
+        setTimeout(() => {
+          dispatch(dismissMessage());
+        }, 3000);
+        // dispatch(push('/'));
         dispatch(stopSubmit(form, {}));
       })
       .catch((err) => {

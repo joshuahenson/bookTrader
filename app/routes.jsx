@@ -9,6 +9,7 @@ import AllBooks from './containers/AllBooks';
 import AddBook from './containers/AddBook';
 import UserBooks from './containers/UserBooks';
 import BookDetail from './containers/BookDetail';
+import Profile from './containers/Profile';
 
 /*
  * @param {Redux Store}
@@ -45,6 +46,7 @@ export default (store) => {
       <Route path="books/:user" component={UserBooks} />
       <Route path="book/:bookId" component={BookDetail} />
       <Route path="add_book" component={AddBook} onEnter={requireAuth} />
+      <Route path="profile" component={Profile} onEnter={requireAuth} />
     </Route>
   );
 };

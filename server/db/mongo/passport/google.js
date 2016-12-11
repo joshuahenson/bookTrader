@@ -10,9 +10,8 @@ export default (req, accessToken, refreshToken, profile, done) => {
       return User.findById(req.user.id, (findByIdErr, user) => {
         user.google = profile.id;
         user.tokens.push({ kind: 'google', accessToken });
-        user.profile.name = user.profile.name || profile.displayName;
-        user.profile.gender = user.profile.gender || profile._json.gender;
-        user.profile.picture = user.profile.picture || profile._json.image.url;
+        user.name = user.name || profile.displayName;
+        user.picture = user.picture || profile._json.image.url;
         user.save((err) => {
           done(err, user, { message: 'Google account has been linked.' });
         });
@@ -29,9 +28,8 @@ export default (req, accessToken, refreshToken, profile, done) => {
       user.email = profile._json.emails[0].value;
       user.google = profile.id;
       user.tokens.push({ kind: 'google', accessToken });
-      user.profile.name = profile.displayName;
-      user.profile.gender = profile._json.gender;
-      user.profile.picture = profile._json.image.url;
+      user.name = profile.displayName;
+      user.picture = profile._json.image.url;
       return user.save((err) => {
         done(err, user);
       });

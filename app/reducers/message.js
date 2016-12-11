@@ -13,12 +13,13 @@ export default function message(state = {
   switch (action.type) {
     case types.LOGIN_SUCCESS_USER:
     case types.SIGNUP_SUCCESS_USER:
-      return {...state, message: action.message, type: 'success'};
+    case types.UPDATE_SUCCESS_USER:
+      return { ...state, message: action.message, type: 'success' };
     case types.DISMISS_MESSAGE:
-      return {...state, message: '', type: ''};
+      return { ...state, message: '', type: '' };
     case types.LOGOUT_ERROR_USER:
     case types.GENERAL_ERROR_MESSAGE:
-      return {...state, message: action.message, type: 'danger'};
+      return { ...state, message: action.message, type: 'danger' };
     default:
       return state;
   }

@@ -17,9 +17,10 @@ export function login(req, res, next) {
     return req.logIn(user, (loginErr) => {
       if (loginErr) return res.status(401).json({ message: loginErr });
       return res.status(200).json({
-        userName: req.user.profile.name,
+        userName: req.user.name,
         userId: req.user._id,
-        message: `Welcome ${req.user.profile.name}. You have been logged in.`
+        email: req.user.email,
+        message: `Welcome ${req.user.name}. You have been logged in.`
       });
     });
   })(req, res, next);
@@ -44,9 +45,7 @@ export function signUp(req, res, next) {
   const user = new User({
     email,
     password,
-    profile: {
-      name
-    }
+    name
   });
 
   User.findOne({ email }, (findErr, existingUser) => {
@@ -59,17 +58,32 @@ export function signUp(req, res, next) {
       return req.logIn(user, (loginErr) => {
         if (loginErr) return res.status(401).json({ message: loginErr });
         return res.status(200).json({
-          userName: req.user.profile.name,
+          userName: req.user.name,
           userId: req.user._id,
-          message: `Welcome ${req.user.profile.name}. Your account has been created.`
+          email: req.user.email,
+          message: `Welcome ${req.user.name}. Your account has been created.`
         });
       });
     });
   });
 }
 
+export function updateProfile(req, res) {
+  const email = sanitizeHtml(req.body.email);
+  const name = sanitizeHtml(req.body.name);
+  const userId = req.body.userId;
+
+  User.update({ _id: userId }, { email, name }, (err) => {
+    if (err) {
+      res.status(500).json({ message: 'A server error has occured!' });
+    }
+    res.json({ email, userName: name });
+  });
+}
+
 export default {
   login,
   logout,
-  signUp
+  signUp,
+  updateProfile
 };
