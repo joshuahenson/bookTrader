@@ -20,7 +20,13 @@ const UserSchema = new mongoose.Schema({
   picture: { type: String, default: '' },
   resetPasswordToken: String,
   resetPasswordExpires: Date,
-  google: String
+  google: String,
+  address: {
+    street: String,
+    city: String,
+    state: String,
+    zip: String
+  }
 });
 
 function encryptPassword(next) {

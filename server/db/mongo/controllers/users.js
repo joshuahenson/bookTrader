@@ -71,13 +71,17 @@ export function signUp(req, res, next) {
 export function updateProfile(req, res) {
   const email = sanitizeHtml(req.body.email);
   const name = sanitizeHtml(req.body.name);
+  const street = sanitizeHtml(req.body.street);
+  const city = sanitizeHtml(req.body.city);
+  const state = sanitizeHtml(req.body.state);
+  const zip = sanitizeHtml(req.body.zip);
   const userId = req.body.userId;
 
-  User.update({ _id: userId }, { email, name }, (err) => {
+  User.update({ _id: userId }, { email, name, address: { street, city, state, zip } }, (err) => {
     if (err) {
       res.status(500).json({ message: 'A server error has occured!' });
     }
-    res.json({ email, userName: name });
+    res.json({ email, userName: name, address: { street, city, state, zip } });
   });
 }
 

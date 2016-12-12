@@ -32,12 +32,13 @@ export function signUpSuccess(message, userName, userId, email) {
   };
 }
 
-export function updateSuccess(userName, email) {
+export function updateSuccess(userName, email, address) {
   return {
     type: types.UPDATE_SUCCESS_USER,
     message: 'Your profile has been updated',
     userName,
-    email
+    email,
+    address
   };
 }
 
@@ -72,7 +73,6 @@ export function userIsNotWaiting() {
 export function manualLogin(data, form) {
   return (dispatch) => {
     dispatch(startSubmit(form));
-
     return axios.post('/login', data)
       .then((response) => {
         const { message, userName, userId, email } = response.data;
@@ -117,8 +117,8 @@ export function updateProfile(values, form, userId) {
     dispatch(startSubmit(form));
     return axios.post('/updateprofile', data)
       .then((response) => {
-        const { userName, email } = response.data;
-        dispatch(updateSuccess(userName, email));
+        const { userName, email, address } = response.data;
+        dispatch(updateSuccess(userName, email, address));
         setTimeout(() => {
           dispatch(dismissMessage());
         }, 3000);

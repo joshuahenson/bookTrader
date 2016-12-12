@@ -115,7 +115,21 @@ const picture = (
       return '';
     case types.LOGIN_SUCCESS_USER:
     case types.SIGNUP_SUCCESS_USER:
-      return action.picture;
+      return action.picture || '';
+    default:
+      return state;
+  }
+};
+
+const address = (
+  state = {},
+  action
+) => {
+  switch (action.type) {
+    case types.LOGOUT_SUCCESS_USER:
+      return {};
+    case types.UPDATE_SUCCESS_USER:
+      return action.address;
     default:
       return state;
   }
@@ -129,7 +143,8 @@ const userReducer = combineReducers({
   userId,
   userName,
   email,
-  picture
+  picture,
+  address
 });
 
 export default userReducer;
