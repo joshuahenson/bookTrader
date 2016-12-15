@@ -24,7 +24,10 @@ const BookDetail = ({ book, userId, deleteBookRequest, proposeTradeRequest }) =>
             <Link to={`/books/${book.userId}`} className="btn btn-default">
               View all user&apos;s books
             </Link>
-            <button type="button" className="btn btn-primary" onClick={() => proposeTradeRequest(book._id, book.userId, userId)}>
+            <button
+type="button" className="btn btn-primary"
+              onClick={() => proposeTradeRequest(book, userId)}
+            >
               Propose trade
             </button>
           </div>

@@ -1,16 +1,26 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-// import {  } from '../actions/books';
+import Books from '../components/Books';
+import { addSelectedBook } from '../actions/books';
 
-// TODO: only show requested text if requested
-const Dashboard = ({ user }) => {
+const Dashboard = ({ user, addSelectedBook }) => {
   return (
     <div>
       <p>This is a super rough cut of the dashboard</p>
-      <p>You have the following books that have been requested:</p>
-      {user.requestedBy.map(book => book.book)}
-      <p>You have requested the following books:</p>
-      {user.requestedFrom.map(book => book.book)}
+      { user.requestedBy.length > 0 &&
+        <div>
+          <p>You have the following books that have been requested:</p>
+          <Books books={user.requestedBy} handleClick={addSelectedBook} requestedBy />
+        </div>
+      }
+      { user.requestedFrom.length > 0 &&
+        <div>
+          <p>You have requested the following books:</p>
+          <Books books={user.requestedFrom} handleClick={addSelectedBook} />
+        </div>
+      }
+
+
     </div>
   );
 };
@@ -19,7 +29,8 @@ const Dashboard = ({ user }) => {
 // TODO: Dashboard.need??
 
 Dashboard.propTypes = {
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  addSelectedBook: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -28,4 +39,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Dashboard);
+export default connect(mapStateToProps, { addSelectedBook })(Dashboard);

@@ -28,11 +28,17 @@ const UserSchema = new mongoose.Schema({
     zip: String
   },
   requestedFrom: [{
-    book: String,
+    bookId: String,
+    title: String,
+    author: String,
+    thumbnail: String,
     userId: String
   }],
   requestedBy: [{
-    book: String,
+    bookId: String,
+    title: String,
+    author: String,
+    thumbnail: String,
     userId: String
   }]
 });

@@ -106,10 +106,10 @@ export function deleteBookRequest(bookId) {
   };
 }
 
-export function proposeTradeRequest(bookId, bookOwnerId, requestorId) {
+export function proposeTradeRequest(book, requestorId) {
   return (dispatch) => {
-    return axios.post('/proposeTrade', { bookId, bookOwnerId, requestorId })
-      .then()
+    return axios.post('/proposeTrade', { book, requestorId })
+      .then()// TODO: reducer to indicate book has been requested(button active) and more
       .catch((error) => {
         if (error.response.status === 409) {
           console.log('Duplicate'); // TODO: message action if implemented

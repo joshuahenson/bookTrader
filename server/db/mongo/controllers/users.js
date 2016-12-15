@@ -92,9 +92,11 @@ export function updateProfile(req, res) {
 
 // TODO: send 409 on duplicate or client side disable button?
 export function proposeTrade(req, res) {
-  const { bookId, bookOwnerId, requestorId } = req.body;
-  task.update('users', { _id: bookOwnerId }, { $push: { requestedBy: { book: bookId, userId: requestorId } } })
-  .update('users', { _id: requestorId }, { $push: { requestedFrom: { book: bookId, userId: bookOwnerId } } })
+  const { book, requestorId } = req.body;
+  const requestorBook = Object.assign({}, book, { requestorId });
+  console.log({ book, requestorBook });
+  task.update('users', { _id: book.userId }, { $push: { requestedBy: requestorBook } })
+  .update('users', { _id: requestorId }, { $push: { requestedFrom: book } })
   .run()
   .then(() => {
     res.status(200).end();

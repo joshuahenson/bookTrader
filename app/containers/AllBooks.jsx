@@ -4,7 +4,7 @@ import Books from '../components/Books';
 import { getBooks, addSelectedBook } from '../actions/books';
 
 const AllBooks = ({ books, addSelectedBook }) => {
-  return <Books books={books} handleClick={addSelectedBook} />;
+  return <Books books={books} handleClick={addSelectedBook} title />;
 };
 
 // Data that needs to be called before rendering the component on the server side.
