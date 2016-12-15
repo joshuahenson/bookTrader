@@ -26,7 +26,15 @@ const UserSchema = new mongoose.Schema({
     city: String,
     state: String,
     zip: String
-  }
+  },
+  requestedFrom: [{
+    book: String,
+    userId: String
+  }],
+  requestedBy: [{
+    book: String,
+    userId: String
+  }]
 });
 
 function encryptPassword(next) {

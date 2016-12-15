@@ -1,6 +1,11 @@
 import passport from 'passport';
 import sanitizeHtml from 'sanitize-html';
+import mongoose from 'mongoose';
+import Fawn from 'fawn';
 import User from '../models/user';
+
+Fawn.init(mongoose);
+const task = Fawn.Task();
 
 /**
  * POST /login
@@ -85,9 +90,25 @@ export function updateProfile(req, res) {
   });
 }
 
+// TODO: send 409 on duplicate or client side disable button?
+export function proposeTrade(req, res) {
+  const { bookId, bookOwnerId, requestorId } = req.body;
+  task.update('users', { _id: bookOwnerId }, { $push: { requestedBy: { book: bookId, userId: requestorId } } })
+  .update('users', { _id: requestorId }, { $push: { requestedFrom: { book: bookId, userId: bookOwnerId } } })
+  .run()
+  .then(() => {
+    res.status(200).end();
+  })
+  .catch((err) => {
+    res.status(500).end();
+    console.log(err);
+  });
+}
+
 export default {
   login,
   logout,
   signUp,
-  updateProfile
+  updateProfile,
+  proposeTrade
 };

@@ -135,6 +135,26 @@ const address = (
   }
 };
 
+const requestedFrom = (
+  state = [],
+  action
+) => {
+  switch (action.type) {
+    default:
+      return state;
+  }
+};
+
+const requestedBy = (
+  state = [],
+  action
+) => {
+  switch (action.type) {
+    default:
+      return state;
+  }
+};
+
 const userReducer = combineReducers({
   authenticated,
   isLogin,
@@ -144,7 +164,9 @@ const userReducer = combineReducers({
   userName,
   email,
   picture,
-  address
+  address,
+  requestedFrom,
+  requestedBy
 });
 
 export default userReducer;

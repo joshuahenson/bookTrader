@@ -43,6 +43,9 @@ const Navigation = ({ user, logOut }) => {
               <LinkContainer active={false} to="/profile">
                 <MenuItem>My Profile</MenuItem>
               </LinkContainer>
+              <LinkContainer active={false} to="/dashboard">
+                <MenuItem>Dashboard</MenuItem>
+              </LinkContainer>
               <MenuItem divider />
               <LinkContainer active={false} to="/">
                 <Button bsStyle="danger" onClick={logOut} block>Log Out</Button>

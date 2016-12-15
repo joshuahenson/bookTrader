@@ -15,6 +15,7 @@ export default (app) => {
     app.post('/signup', usersController.signUp);
     app.post('/logout', usersController.logout);
     app.post('/updateprofile', usersController.updateProfile);
+    app.post('/proposeTrade', usersController.proposeTrade);
   } else {
     console.warn(unsupportedMessage('users routes'));
   }
@@ -22,7 +23,6 @@ export default (app) => {
   // book routes
   if (booksController) {
     app.get('/getBooks', booksController.getBooks);
-    // app.get('/getBook', booksController.getBook);
     app.get('/getBook/:id', booksController.getBook);
     app.delete('/getBook/:id', booksController.deleteBook);
     app.post('/findBook', booksController.findBook);

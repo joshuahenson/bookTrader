@@ -50,6 +50,7 @@ axios.defaults.baseURL = `http://${clientConfig.host}:${clientConfig.port}`;
  * We grab the state passed in from the server and the req object from Express/Koa
  * and pass it into the Router.run function.
  */
+// TODO: one req.user ?
 export default function render(req, res) {
   const authenticated = req.isAuthenticated();
   const history = createMemoryHistory();
@@ -63,7 +64,9 @@ export default function render(req, res) {
       userName: req.user ? req.user.name : '',
       email: req.user ? req.user.email : '',
       picture: req.user ? req.user.picture : '',
-      address: req.user ? req.user.address : {}
+      address: req.user ? req.user.address : {},
+      requestedFrom: req.user ? req.user.requestedFrom : [],
+      requestedBy: req.user ? req.user.requestedBy : []
     }
   }, history);
   const routes = createRoutes(store);
