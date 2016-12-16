@@ -3,17 +3,21 @@ import { connect } from 'react-redux';
 import Books from '../components/Books';
 import { getBooks, addSelectedBook } from '../actions/books';
 
-const AllBooks = ({ books, addSelectedBook }) => {
+const BooksContainer = ({ books, params, addSelectedBook }) => {
+  if (params.user) {
+    return <Books books={books.filter(book => book.userId === params.user)} handleClick={addSelectedBook} title />;
+  }
   return <Books books={books} handleClick={addSelectedBook} title />;
 };
 
 // Data that needs to be called before rendering the component on the server side.
-AllBooks.need = [
+BooksContainer.need = [
   getBooks
 ];
 
-AllBooks.propTypes = {
+BooksContainer.propTypes = {
   books: PropTypes.array.isRequired,
+  params: PropTypes.object.isRequired,
   addSelectedBook: PropTypes.func.isRequired
 };
 
@@ -23,4 +27,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { getBooks, addSelectedBook })(AllBooks);
+export default connect(mapStateToProps, { getBooks, addSelectedBook })(BooksContainer);

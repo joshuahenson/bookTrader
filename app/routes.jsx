@@ -5,9 +5,8 @@ import App from './containers/App';
 import Main from './components/Main';
 import About from './components/About';
 import Auth from './containers/Auth';
-import AllBooks from './containers/AllBooks';
 import AddBook from './containers/AddBook';
-import UserBooks from './containers/UserBooks';
+import BooksContainer from './containers/BooksContainer';
 import BookDetail from './containers/BookDetail';
 import Profile from './containers/Profile';
 import Dashboard from './containers/Dashboard';
@@ -43,8 +42,8 @@ export default (store) => {
       <IndexRoute component={Main} />
       <Route path="login" component={Auth} onEnter={redirectAuth} />
       <Route path="about" component={About} />
-      <Route path="books" component={AllBooks} />
-      <Route path="books/:user" component={UserBooks} />
+      <Route path="books" component={BooksContainer} />
+      <Route path="books/:user" component={BooksContainer} />
       <Route path="book/:bookId" component={BookDetail} />
       <Route path="add_book" component={AddBook} onEnter={requireAuth} />
       <Route path="profile" component={Profile} onEnter={requireAuth} />
