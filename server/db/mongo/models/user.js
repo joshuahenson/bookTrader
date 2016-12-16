@@ -5,7 +5,6 @@
 
 import bcrypt from 'bcrypt-nodejs';
 import mongoose from 'mongoose';
-import shortid from 'shortid';
 
 // Other oauthtypes to be added
 
@@ -14,10 +13,6 @@ import shortid from 'shortid';
  */
 
 const UserSchema = new mongoose.Schema({
-  _id: {
-    type: String,
-    default: shortid.generate
-  },
   email: { type: String, unique: true, lowercase: true },
   password: String,
   tokens: Array,
