@@ -7,7 +7,6 @@ import { controllers, passport as passportConfig } from '../db';
 
 const usersController = controllers && controllers.users;
 const booksController = controllers && controllers.books;
-const tradesController = controllers && controllers.trades;
 
 export default (app) => {
   // user routes
@@ -16,15 +15,9 @@ export default (app) => {
     app.post('/signup', usersController.signUp);
     app.post('/logout', usersController.logout);
     app.post('/updateprofile', usersController.updateProfile);
+    app.post('/proposeTrade', usersController.proposeTrade);
   } else {
     console.warn(unsupportedMessage('users routes'));
-  }
-
-  // user routes
-  if (tradesController) {
-    app.post('/proposeTrade', tradesController.proposeTrade);
-  } else {
-    console.warn(unsupportedMessage('trades routes'));
   }
 
   // book routes
