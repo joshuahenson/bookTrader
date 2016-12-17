@@ -5,17 +5,17 @@ import { addSelectedBook } from '../actions/books';
 
 const Dashboard = ({ user, addSelectedBook }) => {
   return (
-    <div>
+    <div className="text-center">
       <p>This is a super rough cut of the dashboard</p>
       { user.requestedBy.length > 0 &&
-        <div>
-          <p>You have the following books that have been requested:</p>
+        <div className="row">
+          <h3>You have the following books that have been requested:</h3>
           <Books books={user.requestedBy} handleClick={addSelectedBook} requestedBy />
         </div>
       }
       { user.requestedFrom.length > 0 &&
-        <div>
-          <p>You have requested the following books:</p>
+        <div className="row">
+          <h3>You have requested the following books:</h3>
           <Books books={user.requestedFrom} handleClick={addSelectedBook} />
         </div>
       }
