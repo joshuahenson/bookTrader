@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { push } from 'react-router-redux';
 import { startSubmit, stopSubmit } from 'redux-form';
-import { dismissMessage } from './messages';
+import { dismissMessage, generalErrorMessage } from './messages';
 import * as types from '../types';
 
 const getMessage = res => res.response.data.message;
@@ -11,13 +11,17 @@ export function googleLogin() {
   return { type: types.GOOGLE_LOGIN_USER };
 }
 
-export function loginSuccess(message, userName, userId, email) {
+export function loginSuccess(message, userName, userId, email, picture, address, requestedFrom, requestedBy) {
   return {
     type: types.LOGIN_SUCCESS_USER,
     message,
     userName,
     userId,
-    email
+    email,
+    picture,
+    address,
+    requestedFrom,
+    requestedBy
   };
 }
 
@@ -75,8 +79,8 @@ export function manualLogin(data, form) {
     dispatch(startSubmit(form));
     return axios.post('/login', data)
       .then((response) => {
-        const { message, userName, userId, email } = response.data;
-        dispatch(loginSuccess(message, userName, userId, email));
+        const { message, userName, userId, email, picture, address, requestedFrom, requestedBy } = response.data;
+        dispatch(loginSuccess(message, userName, userId, email, picture, address, requestedFrom, requestedBy));
         setTimeout(() => {
           dispatch(dismissMessage());
         }, 3000);
@@ -139,6 +143,31 @@ export function logOut() {
       })
       .catch(() => {
         dispatch(logoutError());
+      });
+  };
+}
+
+
+export function proposeTrade(book) {
+  return {
+    type: types.PROPOSE_TRADE,
+    book
+  };
+}
+
+export function proposeTradeRequest(book, requestorId) {
+  return (dispatch) => {
+    return axios.post('/proposeTrade', { book, requestorId })
+      .then(res => dispatch(proposeTrade(res.data)))
+      .catch((error) => {
+        if (error.response.status === 409) {
+          console.log('Duplicate'); // TODO: message action if implemented
+        } else {
+          dispatch(generalErrorMessage());
+          setTimeout(() => {
+            dispatch(dismissMessage());
+          }, 5000);
+        }
       });
   };
 }

@@ -105,20 +105,3 @@ export function deleteBookRequest(bookId) {
     });
   };
 }
-
-export function proposeTradeRequest(book, requestorId) {
-  return (dispatch) => {
-    return axios.post('/proposeTrade', { book, requestorId })
-      .then()// TODO: reducer to indicate book has been requested(button active) and more
-      .catch((error) => {
-        if (error.response.status === 409) {
-          console.log('Duplicate'); // TODO: message action if implemented
-        } else {
-          dispatch(generalErrorMessage());
-          setTimeout(() => {
-            dispatch(dismissMessage());
-          }, 5000);
-        }
-      });
-  };
-}

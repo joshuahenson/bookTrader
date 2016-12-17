@@ -26,6 +26,10 @@ export function login(req, res, next) {
         userName: req.user.name,
         userId: req.user._id,
         email: req.user.email,
+        picture: req.user.picture,
+        address: req.user.address,
+        requestedFrom: req.user.requestedFrom,
+        requestedBy: req.user.requestedBy,
         message: `Welcome ${req.user.name}. You have been logged in.`
       });
     });
@@ -100,7 +104,7 @@ export function proposeTrade(req, res) {
     .update('users', { _id: requestorId }, { $push: { requestedFrom: book } })
     .run()
     .then(() => {
-      res.status(200).end();
+      res.json(book);
     })
     .catch((err) => {
       res.status(500).end();

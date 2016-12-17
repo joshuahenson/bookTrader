@@ -128,6 +128,7 @@ const address = (
   switch (action.type) {
     case types.LOGOUT_SUCCESS_USER:
       return {};
+    case types.LOGIN_SUCCESS_USER:
     case types.UPDATE_SUCCESS_USER:
       return action.address;
     default:
@@ -140,6 +141,12 @@ const requestedFrom = (
   action
 ) => {
   switch (action.type) {
+    case types.LOGOUT_SUCCESS_USER:
+      return [];
+    case types.LOGIN_SUCCESS_USER:
+      return action.requestedFrom;
+    case types.PROPOSE_TRADE:
+      return [...state, action.book];
     default:
       return state;
   }
@@ -150,6 +157,10 @@ const requestedBy = (
   action
 ) => {
   switch (action.type) {
+    case types.LOGOUT_SUCCESS_USER:
+      return [];
+    case types.LOGIN_SUCCESS_USER:
+      return action.requestedBy;
     default:
       return state;
   }

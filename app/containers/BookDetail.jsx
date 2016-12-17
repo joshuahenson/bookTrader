@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { getBookRequest, deleteBookRequest, proposeTradeRequest } from '../actions/books';
+import { getBookRequest, deleteBookRequest } from '../actions/books';
+import { proposeTradeRequest } from '../actions/users';
 
 // TODO: style and add larger image in place of thumbnail?
 // TODO: Prevent duplicate trade proposals
