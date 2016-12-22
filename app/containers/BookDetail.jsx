@@ -4,12 +4,13 @@ import { Link } from 'react-router';
 import { getBookRequest, deleteBookRequest } from '../actions/books';
 import { proposeTradeRequest } from '../actions/users';
 
-// TODO: style and add larger image in place of thumbnail?
+// TODO: Finish styling
 // TODO: Prevent duplicate trade proposals
 const BookDetail = ({ book, userId, deleteBookRequest, proposeTradeRequest }) => {
+  const cover = book.thumbnail.replace('zoom=1', 'zoom=2').replace('&edge=curl', '');
   return (
     <div>
-      <img alt={book.title} src={book.thumbnail} />
+      <img alt={book.title} src={cover} />
       <h5>{book.title}</h5>
       <h6>{book.author}</h6>
       {
