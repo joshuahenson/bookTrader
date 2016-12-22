@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
 import Helmet from 'react-helmet';
+import { connect } from 'react-redux';
+import Spinner from '../components/Spinner';
 import Navigation from './Navigation';
 import Message from './Message';
 
@@ -13,7 +15,7 @@ import Message from './Message';
  * A better explanation of react-router is available here:
  * https://github.com/rackt/react-router/blob/latest/docs/Introduction.md
  */
-const App = ({ children }) => {
+const App = ({ children, isWaiting }) => {
   return (
     <div>
       <Helmet
@@ -22,13 +24,24 @@ const App = ({ children }) => {
       />
       <Navigation />
       <Message />
-      {children}
+      <div className="overlay-container">
+        {isWaiting && <Spinner />}
+        {children}
+      </div>
+
     </div>
   );
 };
 
 App.propTypes = {
-  children: PropTypes.object
+  children: PropTypes.object,
+  isWaiting: PropTypes.bool
 };
 
-export default App;
+function mapStateToProps(state) {
+  return {
+    isWaiting: state.user.isWaiting
+  };
+}
+
+export default connect(mapStateToProps)(App);
