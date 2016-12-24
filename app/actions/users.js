@@ -11,7 +11,7 @@ export function googleLogin() {
   return { type: types.GOOGLE_LOGIN_USER };
 }
 
-export function loginSuccess(message, userName, userId, email, picture, address, requestedFrom, requestedBy) {
+export function loginSuccess(message, userName, userId, email, picture, address, requestedFrom, requestedBy, trades) {
   return {
     type: types.LOGIN_SUCCESS_USER,
     message,
@@ -21,7 +21,8 @@ export function loginSuccess(message, userName, userId, email, picture, address,
     picture,
     address,
     requestedFrom,
-    requestedBy
+    requestedBy,
+    trades
   };
 }
 
@@ -79,8 +80,8 @@ export function manualLogin(data, form) {
     dispatch(startSubmit(form));
     return axios.post('/login', data)
       .then((response) => {
-        const { message, userName, userId, email, picture, address, requestedFrom, requestedBy } = response.data;
-        dispatch(loginSuccess(message, userName, userId, email, picture, address, requestedFrom, requestedBy));
+        const { message, userName, userId, email, picture, address, requestedFrom, requestedBy, trades } = response.data;
+        dispatch(loginSuccess(message, userName, userId, email, picture, address, requestedFrom, requestedBy, trades));
         setTimeout(() => {
           dispatch(dismissMessage());
         }, 3000);
@@ -168,6 +169,33 @@ export function proposeTradeRequest(book, requestorId) {
             dispatch(dismissMessage());
           }, 5000);
         }
+      });
+  };
+}
+
+export function acceptTrade(tradeId, trade) {
+  return {
+    type: types.ACCEPT_TRADE,
+    tradeId,
+    trade
+  };
+}
+
+export function acceptTradeRequest(book, findTrade) {
+  return (dispatch) => {
+    dispatch(userIsWaiting());
+    return axios.post('/acceptTrade', { book, findTrade })
+      .then((res) => {
+        dispatch(userIsNotWaiting());
+        dispatch(acceptTrade(findTrade.tradeId, res.data));
+        dispatch(push('/dashboard'));
+      })
+      .catch(() => {
+        dispatch(userIsNotWaiting());
+        dispatch(generalErrorMessage());
+        setTimeout(() => {
+          dispatch(dismissMessage());
+        }, 5000);
       });
   };
 }

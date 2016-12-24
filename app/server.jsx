@@ -66,7 +66,8 @@ export default function render(req, res) {
       picture: req.user ? req.user.picture : '',
       address: req.user ? req.user.address : {},
       requestedFrom: req.user ? req.user.requestedFrom : [],
-      requestedBy: req.user ? req.user.requestedBy : []
+      requestedBy: req.user ? req.user.requestedBy : [],
+      trades: req.user ? req.user.trades : []
     }
   }, history);
   const routes = createRoutes(store);

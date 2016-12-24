@@ -16,6 +16,7 @@ export default (app) => {
     app.post('/logout', usersController.logout);
     app.post('/updateprofile', usersController.updateProfile);
     app.post('/proposeTrade', usersController.proposeTrade);
+    app.post('/acceptTrade', usersController.acceptTrade);
   } else {
     console.warn(unsupportedMessage('users routes'));
   }

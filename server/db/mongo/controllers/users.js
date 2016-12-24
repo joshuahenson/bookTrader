@@ -30,6 +30,7 @@ export function login(req, res, next) {
         address: req.user.address,
         requestedFrom: req.user.requestedFrom,
         requestedBy: req.user.requestedBy,
+        trades: req.user.trades,
         message: `Welcome ${req.user.name}. You have been logged in.`
       });
     });
@@ -112,10 +113,48 @@ export function proposeTrade(req, res) {
     });
 }
 
+export function acceptTrade(req, res) {
+  const { book, findTrade } = req.body;
+  // book belongs to proposer that acceptor is choosing to trade his book for
+  // findTrade is book that was originally proposed for trade
+  // yeah, I really need to come up with better descriptors for people and books
+  const { tradeId } = findTrade;
+  const trade = {
+    tradeId,
+    books: [
+      {
+        bookId: book._id,
+        title: book.title,
+        author: book.author,
+        thumbnail: book.thumbnail,
+        userId: book.userId
+      },
+      {
+        bookId: findTrade._id,
+        title: findTrade.title,
+        author: findTrade.author,
+        thumbnail: findTrade.thumbnail,
+        userId: findTrade.userId
+      }
+    ]
+  };
+  task.update('users', { _id: book.userId }, { $pull: { requestedFrom: { tradeId } }, $push: { trades: trade } }) // remove requestor's request
+    .update('users', { _id: findTrade.userId }, { $pull: { requestedBy: { tradeId } }, $push: { trades: trade } }) // remove from book owner
+    .run()
+    .then(() => {
+      res.json(trade);
+    })
+    .catch((err) => {
+      res.status(500).end();
+      console.log(err);
+    });
+}
+
 export default {
   login,
   logout,
   signUp,
   updateProfile,
-  proposeTrade
+  proposeTrade,
+  acceptTrade
 };

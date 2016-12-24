@@ -161,6 +161,24 @@ const requestedBy = (
       return [];
     case types.LOGIN_SUCCESS_USER:
       return action.requestedBy;
+    case types.ACCEPT_TRADE:
+      return state.filter(trade => action.tradeId !== trade.tradeId);
+    default:
+      return state;
+  }
+};
+
+const trades = (
+  state = [],
+  action
+) => {
+  switch (action.type) {
+    case types.LOGOUT_SUCCESS_USER:
+      return [];
+    case types.LOGIN_SUCCESS_USER:
+      return action.trades;
+    case types.ACCEPT_TRADE:
+      return [...state, action.trade];
     default:
       return state;
   }
@@ -177,7 +195,8 @@ const userReducer = combineReducers({
   picture,
   address,
   requestedFrom,
-  requestedBy
+  requestedBy,
+  trades
 });
 
 export default userReducer;

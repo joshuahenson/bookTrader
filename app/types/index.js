@@ -11,9 +11,11 @@ export const LOGOUT_ERROR_USER = 'LOGOUT_ERROR_USER';
 export const IS_WAITING = 'IS_WAITING';
 export const IS_NOT_WAITING = 'IS_NOT_WAITING';
 export const PROPOSE_TRADE = 'PROPOSE_TRADE';
+export const ACCEPT_TRADE = 'ACCEPT_TRADE';
 
 export const ADD_BOOKS = 'ADD_BOOKS';
 export const ADD_BOOK = 'ADD_BOOK';
 export const DISPLAY_BOOK_SEARCH = 'DISPLAY_BOOK_SEARCH';
 export const ADD_SELECTED_BOOK = 'ADD_SELECTED_BOOK';
 export const DELETE_BOOK = 'DELETE_BOOK';
+export const FIND_TRADE = 'FIND_TRADE';

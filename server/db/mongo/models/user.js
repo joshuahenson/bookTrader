@@ -40,7 +40,21 @@ const UserSchema = new mongoose.Schema({
     author: String,
     thumbnail: String,
     userId: String
-  }]
+  }],
+  trades: [
+    {
+      tradeId: String,
+      books: [
+        {
+          bookId: String,
+          title: String,
+          author: String,
+          thumbnail: String,
+          userId: String
+        }
+      ]
+    }
+  ]
 });
 
 function encryptPassword(next) {

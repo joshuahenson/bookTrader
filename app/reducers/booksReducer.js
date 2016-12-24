@@ -49,10 +49,20 @@ const bookDetail = (state = {}, action) => {
   }
 };
 
+const findTrade = (state = {}, action) => {
+  switch (action.type) {
+    case types.FIND_TRADE:
+      return action.book;
+    default:
+      return state;
+  }
+};
+
 const books = combineReducers({
   allBooks,
   searchResults,
-  bookDetail
+  bookDetail,
+  findTrade
 });
 
 export default books;

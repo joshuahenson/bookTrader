@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
-const Books = ({ books, handleClick, title, requestedBy }) => {
+const Books = ({ books, handleClick, title, requestedBy, findTrade }) => {
   return (
     <div>
       {books.map((book, index) => (
@@ -17,8 +17,8 @@ const Books = ({ books, handleClick, title, requestedBy }) => {
           </Link>
           {requestedBy &&
             <div>
-              <Link to={`/books/${book.requestorId}`} className="btn btn-default" style={{ margin: 10 }}>
-                View all user&apos;s books
+              <Link to={`/books/${book.requestorId}`} onClick={() => findTrade(book)} className="btn btn-default" style={{ margin: 10 }}>
+                Find a trade
               </Link>
             </div>
           }
@@ -31,6 +31,7 @@ const Books = ({ books, handleClick, title, requestedBy }) => {
 Books.propTypes = {
   books: PropTypes.array,
   handleClick: PropTypes.func,
+  findTrade: PropTypes.func,
   title: PropTypes.bool,
   requestedBy: PropTypes.bool
 };

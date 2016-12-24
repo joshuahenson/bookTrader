@@ -48,6 +48,12 @@
 //   border-radius: 35px;
 // }
 
+.outline-thin {
+  outline: 1px solid black;
+  display: inline-block;
+  padding: 5px;
+}
+
 .overlay-container {
   position: relative;
 }

@@ -105,3 +105,10 @@ export function deleteBookRequest(bookId) {
     });
   };
 }
+
+export function findTrade(book) {
+  return {
+    type: types.FIND_TRADE,
+    book
+  };
+}
