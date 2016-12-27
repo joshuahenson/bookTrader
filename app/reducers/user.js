@@ -147,6 +147,8 @@ const requestedFrom = (
       return action.requestedFrom;
     case types.PROPOSE_TRADE:
       return [...state, action.book];
+    case types.CANCEL_PROPOSAL:
+      return state.filter(book => action.bookId !== book._id);
     default:
       return state;
   }

@@ -218,3 +218,25 @@ export function acceptTradeRequest(book, findTrade, address) {
       });
   };
 }
+
+export function cancelProposal(bookId) {
+  return {
+    type: types.CANCEL_PROPOSAL,
+    bookId
+  };
+}
+export function cancelProposalRequest(bookId, ownerId, userId) {
+  return (dispatch) => {
+    return axios.post('/cancelProposal', { bookId, ownerId, userId })
+      .then(() => {
+        dispatch(cancelProposal(bookId));
+        dispatch(push('/dashboard'));
+      })
+      .catch(() => {
+        dispatch(generalErrorMessage());
+        setTimeout(() => {
+          dispatch(dismissMessage());
+        }, 5000);
+      });
+  };
+}

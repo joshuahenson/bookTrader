@@ -14,6 +14,7 @@ export const IS_WAITING = 'IS_WAITING';
 export const IS_NOT_WAITING = 'IS_NOT_WAITING';
 export const PROPOSE_TRADE = 'PROPOSE_TRADE';
 export const ACCEPT_TRADE = 'ACCEPT_TRADE';
+export const CANCEL_PROPOSAL = 'CANCEL_PROPOSAL';
 
 export const ADD_BOOKS = 'ADD_BOOKS';
 export const ADD_BOOK = 'ADD_BOOK';
