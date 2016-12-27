@@ -15,6 +15,22 @@ const validate = (values) => {
   if (!values.name) {
     errors.name = 'Required';
   }
+  if (!values.street) {
+    errors.street = 'Required';
+  }
+  if (!values.city) {
+    errors.city = 'Required';
+  }
+  if (!values.state) {
+    errors.state = 'Required';
+  } else if (!/^(?:A[LKSZRAEP]|C[AOT]|D[EC]|F[LM]|G[AU]|HI|I[ADLN]|K[SY]|LA|M[ADEHINOPST]|N[CDEHJMVY]|O[HKR]|P[ARW]|RI|S[CD]|T[NX]|UT|V[AIT]|W[AIVY])$/i.test(values.state)) {
+    errors.state = 'Invalid state';
+  }
+  if (!values.zip) {
+    errors.zip = 'Required';
+  } else if (!/^([0-9]{5}(?:-[0-9]{4})?)*$/.test(values.zip)) {
+    errors.zip = 'Invalid zip code';
+  }
   return errors;
 };
 
