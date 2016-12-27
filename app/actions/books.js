@@ -50,9 +50,9 @@ export function addBook(id) {
   };
 }
 
-export function addBookRequest(thumbnail, title, author, userId, bookId) {
+export function addBookRequest(thumbnail, title, author, bookId) {
   return (dispatch) => {
-    return axios.post('/addBook', { thumbnail, title, author, userId })
+    return axios.post('/addBook', { thumbnail, title, author })
       .then(dispatch(addBook(bookId)))
       .catch(() => {
         dispatch(generalErrorMessage());

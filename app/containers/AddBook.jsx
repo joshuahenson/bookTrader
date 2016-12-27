@@ -14,7 +14,7 @@ const validate = (values) => {
 
 // TODO: Generalize wording about title or add multiple fields for different search types
 // TODO: split this up ?
-let AddBook = ({ handleSubmit, submitting, findBookRequest, searchResults, addBookRequest, userId }) => {
+let AddBook = ({ handleSubmit, submitting, findBookRequest, searchResults, addBookRequest }) => {
   return (
     <div>
       <h2 className="text-center">Add a book</h2>
@@ -37,7 +37,7 @@ let AddBook = ({ handleSubmit, submitting, findBookRequest, searchResults, addBo
               className={`btn btn-circle ${book.added ? 'btn-success' : 'btn-primary'}`}
               disabled={book.added}
               onClick={() => addBookRequest(
-                  book.thumbnail, book.title, (book.authors ? book.authors.join(', ') : ''), userId, book.id
+                  book.thumbnail, book.title, (book.authors ? book.authors.join(', ') : ''), book.id
                 )
               }
             >+</button>
@@ -57,14 +57,12 @@ AddBook.propTypes = {
   submitting: PropTypes.bool.isRequired,
   findBookRequest: PropTypes.func.isRequired,
   addBookRequest: PropTypes.func.isRequired,
-  searchResults: PropTypes.array.isRequired,
-  userId: PropTypes.string.isRequired
+  searchResults: PropTypes.array.isRequired
 };
 
 function mapStateToProps(state) {
   return {
-    searchResults: state.books.searchResults,
-    userId: state.user.userId
+    searchResults: state.books.searchResult
   };
 }
 

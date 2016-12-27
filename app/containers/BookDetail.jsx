@@ -16,13 +16,13 @@ const renderTradeButton = (proposeTradeRequest, book, userId, findTrade, request
   }
   if (requestedFrom.find(title => title._id === book._id)) {
     return (
-      <button type="button" className="btn btn-danger" onClick={() => cancelProposalRequest(book._id, book.userId, userId)}>
+      <button type="button" className="btn btn-danger" onClick={() => cancelProposalRequest(book._id, book.userId)}>
         Cancel proposed trade
       </button>
     );
   }
   return (
-    <button type="button" className="btn btn-primary" onClick={() => proposeTradeRequest(book, userId, address)}>
+    <button type="button" className="btn btn-primary" onClick={() => proposeTradeRequest(book, address)}>
       Propose trade
     </button>
   );

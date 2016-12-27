@@ -22,7 +22,8 @@ export function findBook(req, res) {
 // Currently saves multiple copies of books in individual documents resulting in showing of duplicates
 // I currently like that it shows abundance of books but I may want to change that
 export function addBook(req, res) {
-  const newBook = new Book(req.body);
+  const { thumbnail, title, author } = req.body;
+  const newBook = new Book({ thumbnail, title, author, userId: req.user._id });
   newBook.save((err) => {
     if (err) {
       res.status(500).send(err);

@@ -115,12 +115,10 @@ export function signUp(data, form) {
 }
 
 // this isn't very restful
-export function updateProfile(values, form, userId) {
-  const data = values;
-  data.userId = userId; // combine userId with form values for updating
+export function updateProfile(values, form) {
   return (dispatch) => {
     dispatch(startSubmit(form));
-    return axios.post('/updateprofile', data)
+    return axios.post('/updateprofile', values)
       .then((response) => {
         const { userName, email, address } = response.data;
         dispatch(updateSuccess(userName, email, address));
@@ -166,12 +164,12 @@ function addressRequired() {
   };
 }
 
-export function proposeTradeRequest(book, requestorId, address) {
+export function proposeTradeRequest(book, address) {
   if (Object.keys(address).length === 0) {
     return addressRequired();
   }
   return (dispatch) => {
-    return axios.post('/proposeTrade', { book, requestorId })
+    return axios.post('/proposeTrade', { book })
       .then((res) => {
         dispatch(proposeTrade(res.data));
         dispatch(push('/dashboard'));
@@ -225,9 +223,9 @@ export function cancelProposal(bookId) {
     bookId
   };
 }
-export function cancelProposalRequest(bookId, ownerId, userId) {
+export function cancelProposalRequest(bookId, ownerId) {
   return (dispatch) => {
-    return axios.post('/cancelProposal', { bookId, ownerId, userId })
+    return axios.post('/cancelProposal', { bookId, ownerId })
       .then(() => {
         dispatch(cancelProposal(bookId));
         dispatch(push('/dashboard'));

@@ -86,9 +86,8 @@ export function updateProfile(req, res) {
   const city = sanitizeHtml(req.body.city);
   const state = sanitizeHtml(req.body.state);
   const zip = sanitizeHtml(req.body.zip);
-  const userId = req.body.userId;
 
-  User.update({ _id: userId }, { email, name, address: { street, city, state, zip } }, (err) => {
+  User.update({ _id: req.user._id }, { email, name, address: { street, city, state, zip } }, (err) => {
     if (err) {
       res.status(500).json({ message: 'A server error has occured!' });
     }
@@ -98,11 +97,11 @@ export function updateProfile(req, res) {
 
 // TODO: send 409 on duplicate or client side disable button?
 export function proposeTrade(req, res) {
-  const { book, requestorId } = req.body;
+  const { book } = req.body;
   book.tradeId = shortid.generate();
-  const requestorBook = Object.assign({}, book, { requestorId });
+  const requestorBook = Object.assign({}, book, { requestorId: req.user._id });
   task.update('users', { _id: book.userId }, { $push: { requestedBy: requestorBook } })
-    .update('users', { _id: requestorId }, { $push: { requestedFrom: book } })
+    .update('users', { _id: req.user._id }, { $push: { requestedFrom: book } })
     .run()
     .then(() => {
       res.json(book);
@@ -151,9 +150,9 @@ export function acceptTrade(req, res) {
 }
 
 export function cancelProposal(req, res) {
-  const { bookId, ownerId, userId } = req.body;
+  const { bookId, ownerId } = req.body;
   task.update('users', { _id: ownerId }, { $pull: { requestedBy: { _id: bookId } } })
-    .update('users', { _id: userId }, { $pull: { requestedFrom: { _id: bookId } } })
+    .update('users', { _id: req.user._id }, { $pull: { requestedFrom: { _id: bookId } } })
     .run()
     .then(() => {
       res.status(200).end();

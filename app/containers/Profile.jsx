@@ -35,13 +35,13 @@ const validate = (values) => {
 };
 
 // TODO: Use object-diff to send only dirty values?
-let Profile = ({ error, handleSubmit, submitting, updateProfile, pristine, userId }) => {
+let Profile = ({ error, handleSubmit, submitting, updateProfile, pristine }) => {
   return (
     <div>
       <div className="text-center">
         <h2>Profile</h2>
       </div>
-      <form className="form-horizontal" onSubmit={handleSubmit(values => updateProfile(values, 'profile', userId))}>
+      <form className="form-horizontal" onSubmit={handleSubmit(values => updateProfile(values, 'profile'))}>
         <Field name="name" type="name" component={FormField} label="Name" />
         <Field name="email" type="email" component={FormField} label="Email" />
         <Field name="street" type="street" component={FormField} label="Street" />
@@ -66,8 +66,7 @@ Profile.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   error: PropTypes.string,
   submitting: PropTypes.bool.isRequired,
-  pristine: PropTypes.bool.isRequired,
-  userId: PropTypes.string.isRequired
+  pristine: PropTypes.bool.isRequired
 };
 
 Profile = reduxForm({
