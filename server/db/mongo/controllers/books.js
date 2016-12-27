@@ -42,11 +42,10 @@ export function getBook(req, res) {
 }
 
 export function deleteBook(req, res) {
-  Book.findByIdAndRemove(req.params.id, (err) => {
+  Book.findOneAndRemove({ _id: req.params.id, userId: req.user._id }, (err) => {
     if (err) {
       res.status(500).send(err);
-    }
-    if (!err) {
+    } else {
       res.status(200).end();
     }
   });

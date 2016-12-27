@@ -62,7 +62,7 @@ AddBook.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    searchResults: state.books.searchResult
+    searchResults: state.books.searchResults
   };
 }
 
