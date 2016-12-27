@@ -4,12 +4,12 @@ import { Link } from 'react-router';
 import { getBookRequest, deleteBookRequest } from '../actions/books';
 import { proposeTradeRequest, acceptTradeRequest } from '../actions/users';
 
-const renderTradeButton = (proposeTradeRequest, book, userId, findTrade, requestedFrom, acceptTradeRequest) => {
+const renderTradeButton = (proposeTradeRequest, book, userId, findTrade, requestedFrom, acceptTradeRequest, address) => {
   if (findTrade.requestorId === book.userId) {
     return (
       <button
         type="button" className="btn btn-primary"
-        onClick={() => acceptTradeRequest(book, findTrade)}>
+        onClick={() => acceptTradeRequest(book, findTrade, address)}>
         Accept trade
       </button>
     );
@@ -22,7 +22,7 @@ const renderTradeButton = (proposeTradeRequest, book, userId, findTrade, request
     );
   }
   return (
-    <button type="button" className="btn btn-primary" onClick={() => proposeTradeRequest(book, userId)}>
+    <button type="button" className="btn btn-primary" onClick={() => proposeTradeRequest(book, userId, address)}>
       Propose trade
     </button>
   );
@@ -30,7 +30,7 @@ const renderTradeButton = (proposeTradeRequest, book, userId, findTrade, request
 
 // TODO: Finish styling
 // TODO: Prevent duplicate trade proposals
-const BookDetail = ({ book, userId, deleteBookRequest, proposeTradeRequest, findTrade, requestedFrom, acceptTradeRequest }) => {
+const BookDetail = ({ book, userId, deleteBookRequest, proposeTradeRequest, findTrade, requestedFrom, acceptTradeRequest, address }) => {
   const cover = book.thumbnail.replace('zoom=1', 'zoom=2').replace('&edge=curl', '');
   return (
     <div>
@@ -50,7 +50,7 @@ const BookDetail = ({ book, userId, deleteBookRequest, proposeTradeRequest, find
             <Link to={`/books/${book.userId}`} className="btn btn-default">
               View all user&apos;s books
             </Link>
-            {renderTradeButton(proposeTradeRequest, book, userId, findTrade, requestedFrom, acceptTradeRequest)}
+            {renderTradeButton(proposeTradeRequest, book, userId, findTrade, requestedFrom, acceptTradeRequest, address)}
           </div>
       }
     </div>
@@ -67,7 +67,8 @@ BookDetail.propTypes = {
   proposeTradeRequest: PropTypes.func.isRequired,
   acceptTradeRequest: PropTypes.func.isRequired,
   findTrade: PropTypes.object.isRequired,
-  requestedFrom: PropTypes.array.isRequired
+  requestedFrom: PropTypes.array.isRequired,
+  address: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
@@ -75,7 +76,8 @@ function mapStateToProps(state) {
     book: state.books.bookDetail,
     userId: state.user.userId,
     findTrade: state.books.findTrade,
-    requestedFrom: state.user.requestedFrom
+    requestedFrom: state.user.requestedFrom,
+    address: state.user.address
   };
 }
 

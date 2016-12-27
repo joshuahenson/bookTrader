@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { push } from 'react-router-redux';
 import { startSubmit, stopSubmit } from 'redux-form';
-import { dismissMessage, generalErrorMessage } from './messages';
+import { dismissMessage, generalErrorMessage, infoMessage } from './messages';
 import * as types from '../types';
 
 const getMessage = res => res.response.data.message;
@@ -156,10 +156,26 @@ export function proposeTrade(book) {
   };
 }
 
-export function proposeTradeRequest(book, requestorId) {
+function addressRequired() {
+  return (dispatch) => {
+    dispatch(push('/profile'));
+    dispatch(infoMessage('Please update address first'));
+    setTimeout(() => {
+      dispatch(dismissMessage());
+    }, 5000);
+  };
+}
+
+export function proposeTradeRequest(book, requestorId, address) {
+  if (Object.keys(address).length === 0) {
+    return addressRequired();
+  }
   return (dispatch) => {
     return axios.post('/proposeTrade', { book, requestorId })
-      .then(res => dispatch(proposeTrade(res.data)))
+      .then((res) => {
+        dispatch(proposeTrade(res.data));
+        dispatch(push('/dashboard'));
+      })
       .catch((error) => {
         if (error.response.status === 409) {
           console.log('Duplicate'); // TODO: message action if implemented
@@ -181,7 +197,10 @@ export function acceptTrade(tradeId, trade) {
   };
 }
 
-export function acceptTradeRequest(book, findTrade) {
+export function acceptTradeRequest(book, findTrade, address) {
+  if (Object.keys(address).length === 0) {
+    return addressRequired();
+  }
   return (dispatch) => {
     dispatch(userIsWaiting());
     return axios.post('/acceptTrade', { book, findTrade })
