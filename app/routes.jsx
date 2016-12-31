@@ -46,7 +46,7 @@ export default (store) => {
       <Route path="books" component={BooksContainer} />
       <Route path="books/:user" component={BooksContainer} />
       <Route path="book/:bookId" component={BookDetail} />
-      <Route path="trade/:tradeId" component={TradeDetail} />
+      <Route path="trade/:tradeId" component={TradeDetail} onEnter={requireAuth} />
       <Route path="add_book" component={AddBook} onEnter={requireAuth} />
       <Route path="profile" component={Profile} onEnter={requireAuth} />
       <Route path="dashboard" component={Dashboard} onEnter={requireAuth} />

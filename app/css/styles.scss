@@ -119,3 +119,10 @@
 }
 
 /* End spinner */
+
+@media (min-width: 768px) {
+  .vertical-align-sm {
+    display: flex;
+    align-items: center;
+  }
+}
