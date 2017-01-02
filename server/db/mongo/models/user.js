@@ -32,14 +32,17 @@ const UserSchema = new mongoose.Schema({
     title: String,
     author: String,
     thumbnail: String,
-    userId: String
+    userId: String,
+    tradeId: String
   }],
   requestedBy: [{
     bookId: String,
     title: String,
     author: String,
     thumbnail: String,
-    userId: String
+    userId: String,
+    tradeId: String,
+    requestorId: String
   }],
   trades: [
     {
