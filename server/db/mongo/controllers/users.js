@@ -112,6 +112,7 @@ export function proposeTrade(req, res) {
     });
 }
 
+// TODO: req.user._id
 export function acceptTrade(req, res) {
   const { book, findTrade } = req.body;
   // book belongs to proposer that acceptor is choosing to trade his book for
@@ -163,6 +164,21 @@ export function cancelProposal(req, res) {
     });
 }
 
+// FUTURE: alert other user or store denied trades.
+export function denyTrade(req, res) {
+  const { tradeId, requestorId } = req.body;
+  task.update('users', { _id: req.user._id }, { $pull: { requestedBy: { tradeId } } })
+    .update('users', { _id: requestorId }, { $pull: { requestedFrom: { tradeId } } })
+    .run()
+    .then(() => {
+      res.status(200).end();
+    })
+    .catch((err) => {
+      res.status(500).end();
+      console.log(err);
+    });
+}
+
 export default {
   login,
   logout,
@@ -170,5 +186,6 @@ export default {
   updateProfile,
   proposeTrade,
   acceptTrade,
-  cancelProposal
+  cancelProposal,
+  denyTrade
 };

@@ -223,12 +223,35 @@ export function cancelProposal(bookId) {
     bookId
   };
 }
+
 export function cancelProposalRequest(bookId, ownerId) {
   return (dispatch) => {
     return axios.post('/cancelProposal', { bookId, ownerId })
       .then(() => {
         dispatch(cancelProposal(bookId));
         dispatch(push('/dashboard'));
+      })
+      .catch(() => {
+        dispatch(generalErrorMessage());
+        setTimeout(() => {
+          dispatch(dismissMessage());
+        }, 5000);
+      });
+  };
+}
+
+export function denyTrade(tradeId) {
+  return {
+    type: types.DENY_TRADE,
+    tradeId
+  };
+}
+
+export function denyTradeRequest(tradeId, requestorId) {
+  return (dispatch) => {
+    return axios.post('/denyTrade', { tradeId, requestorId })
+      .then(() => {
+        dispatch(denyTrade(tradeId));
       })
       .catch(() => {
         dispatch(generalErrorMessage());

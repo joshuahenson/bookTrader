@@ -164,6 +164,7 @@ const requestedBy = (
     case types.LOGIN_SUCCESS_USER:
       return action.requestedBy;
     case types.ACCEPT_TRADE:
+    case types.DENY_TRADE:
       return state.filter(trade => action.tradeId !== trade.tradeId);
     default:
       return state;

@@ -3,15 +3,15 @@ import { connect } from 'react-redux';
 import Books from '../components/Books';
 import Trades from '../components/Trades';
 import { addSelectedBook, findTrade } from '../actions/books';
+import { denyTradeRequest } from '../actions/users';
 
-const Dashboard = ({ user, addSelectedBook, findTrade }) => {
+const Dashboard = ({ user, addSelectedBook, findTrade, denyTradeRequest }) => {
   return (
     <div className="text-center">
-      <p>This is a super rough cut of the dashboard</p>
       { user.requestedBy.length > 0 &&
         <div className="row">
           <h3>You have the following books that have been requested:</h3>
-          <Books books={user.requestedBy} handleClick={addSelectedBook} findTrade={findTrade} requestedBy />
+          <Books books={user.requestedBy} handleClick={addSelectedBook} findTrade={findTrade} denyTradeRequest={denyTradeRequest} requestedBy />
         </div>
       }
       { user.requestedFrom.length > 0 &&
@@ -38,7 +38,8 @@ const Dashboard = ({ user, addSelectedBook, findTrade }) => {
 Dashboard.propTypes = {
   user: PropTypes.object.isRequired,
   addSelectedBook: PropTypes.func.isRequired,
-  findTrade: PropTypes.func.isRequired
+  findTrade: PropTypes.func.isRequired,
+  denyTradeRequest: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -47,4 +48,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { addSelectedBook, findTrade })(Dashboard);
+export default connect(mapStateToProps, { addSelectedBook, findTrade, denyTradeRequest })(Dashboard);

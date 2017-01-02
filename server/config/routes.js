@@ -18,6 +18,7 @@ export default (app) => {
     app.post('/proposeTrade', usersController.proposeTrade);
     app.post('/acceptTrade', usersController.acceptTrade);
     app.post('/cancelProposal', usersController.cancelProposal);
+    app.post('/denyTrade', usersController.denyTrade);
   } else {
     console.warn(unsupportedMessage('users routes'));
   }
