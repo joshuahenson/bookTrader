@@ -15,7 +15,10 @@ const TradeDetail = ({ user, params }) => {
       <p>You have traded your copy of</p>
       <div className="row vertical-align-sm">
         <div className="col-sm-5">
-          <img src={userBook.thumbnail.replace('zoom=1', 'zoom=2').replace('&edge=curl', '')} alt={userBook.title} />
+          <img
+            src={userBook.thumbnail.replace('zoom=1', 'zoom=2').replace('&edge=curl', '')}
+            alt={`${userBook.title} cover`}
+          />
           <h5>{userBook.title}</h5>
           <h6>{userBook.author}</h6>
         </div>
@@ -23,7 +26,10 @@ const TradeDetail = ({ user, params }) => {
           for
         </p>
         <div className="col-sm-5">
-          <img src={otherBook.thumbnail.replace('zoom=1', 'zoom=2').replace('&edge=curl', '')} alt={otherBook.title} />
+          <img
+            src={otherBook.thumbnail.replace('zoom=1', 'zoom=2').replace('&edge=curl', '')}
+            alt={`${otherBook.title} cover`}
+          />
           <h5>{otherBook.title}</h5>
           <h6>{otherBook.author}</h6>
         </div>
