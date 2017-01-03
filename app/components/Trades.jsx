@@ -10,8 +10,7 @@ const Trades = ({ trades }) => {
             {trade.books.map((book, index) => (
               <div key={index} className="col-xs-6">
                 <img alt={book.title} src={book.thumbnail} />
-                <h5>{book.title}</h5>
-                <h6>{book.author}</h6>
+                <h6>{book.title}</h6>
               </div>
                 ))}
           </Link>

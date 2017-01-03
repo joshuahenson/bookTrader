@@ -8,6 +8,7 @@ const Books = ({ books, handleClick, requestedBy, findTrade, denyTradeRequest })
         <div key={index} className="col-sm-6 col-md-4 col-lg-3 text-center book-results">
           <Link to={`/book/${book._id}`} onClick={() => handleClick(book)} >
             <img alt={book.title} src={book.thumbnail} />
+            <h6>{book.title}</h6>
           </Link>
           {requestedBy &&
             <div>
