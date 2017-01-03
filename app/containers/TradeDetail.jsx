@@ -9,18 +9,23 @@ const TradeDetail = ({ user, params }) => {
   const otherBook = books[otherIndex];
 
   // TODO: add address
+  // FUTURE: extract individual book detail to separate component
   return (
     <div className="text-center">
       <p>You have traded your copy of</p>
       <div className="row vertical-align-sm">
         <div className="col-sm-5">
           <img src={userBook.thumbnail.replace('zoom=1', 'zoom=2').replace('&edge=curl', '')} alt={userBook.title} />
+          <h5>{userBook.title}</h5>
+          <h6>{userBook.author}</h6>
         </div>
         <p className="col-sm-2">
           for
         </p>
         <div className="col-sm-5">
           <img src={otherBook.thumbnail.replace('zoom=1', 'zoom=2').replace('&edge=curl', '')} alt={otherBook.title} />
+          <h5>{otherBook.title}</h5>
+          <h6>{otherBook.author}</h6>
         </div>
       </div>
       <div>
