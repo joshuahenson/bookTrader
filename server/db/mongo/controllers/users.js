@@ -112,7 +112,6 @@ export function proposeTrade(req, res) {
     });
 }
 
-// TODO: req.user._id
 export function acceptTrade(req, res) {
   const { book, findTrade } = req.body;
   // book belongs to proposer that acceptor is choosing to trade his book for
@@ -139,7 +138,7 @@ export function acceptTrade(req, res) {
     ]
   };
   task.update('users', { _id: book.userId }, { $pull: { requestedFrom: { tradeId } }, $push: { trades: trade } }) // remove requestor's request
-    .update('users', { _id: findTrade.userId }, { $pull: { requestedBy: { tradeId } }, $push: { trades: trade } }) // remove from book owner
+    .update('users', { _id: req.user._id }, { $pull: { requestedBy: { tradeId } }, $push: { trades: trade } }) // remove from book owner
     .run()
     .then(() => {
       res.json(trade);
