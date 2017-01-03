@@ -8,46 +8,52 @@ const renderTradeButton = (proposeTradeRequest, book, userId, findTrade, request
   if (findTrade.requestorId === book.userId) {
     return (
       <button
-        type="button" className="btn btn-primary"
-        onClick={() => acceptTradeRequest(book, findTrade, address)}>
+        type="button" className="btn btn-primary" style={{ margin: 10 }}
+        onClick={() => acceptTradeRequest(book, findTrade, address)}
+      >
         Accept trade
       </button>
     );
   }
   if (requestedFrom.find(title => title._id === book._id)) {
     return (
-      <button type="button" className="btn btn-danger" onClick={() => cancelProposalRequest(book._id, book.userId)}>
+      <button
+        type="button" className="btn btn-danger" style={{ margin: 10 }}
+        onClick={() => cancelProposalRequest(book._id, book.userId)}
+      >
         Cancel proposed trade
       </button>
     );
   }
   return (
-    <button type="button" className="btn btn-primary" onClick={() => proposeTradeRequest(book, address)}>
+    <button
+      type="button" className="btn btn-primary" style={{ margin: 10 }}
+      onClick={() => proposeTradeRequest(book, address)}
+    >
       Propose trade
     </button>
   );
 };
 
-// TODO: Finish styling
 // TODO: Prevent duplicate trade proposals
 const BookDetail = ({ book, userId, deleteBookRequest, proposeTradeRequest, findTrade, requestedFrom, acceptTradeRequest, address, cancelProposalRequest }) => {
   const cover = book.thumbnail.replace('zoom=1', 'zoom=2').replace('&edge=curl', '');
   return (
-    <div>
+    <div className="text-center">
       <img alt={book.title} src={cover} />
       <h5>{book.title}</h5>
       <h6>{book.author}</h6>
       {
         userId === book.userId ?
           <button
-            type="button" className="btn btn-danger"
+            type="button" className="btn btn-danger" style={{ margin: 10 }}
             onClick={() => deleteBookRequest(book._id)}
           >
             Remove your book
           </button>
         :
           <div>
-            <Link to={`/books/${book.userId}`} className="btn btn-default">
+            <Link to={`/books/${book.userId}`} className="btn btn-default" style={{ margin: 10 }}>
               View all user&apos;s books
             </Link>
             {renderTradeButton(proposeTradeRequest, book, userId, findTrade, requestedFrom, acceptTradeRequest, address, cancelProposalRequest)}
