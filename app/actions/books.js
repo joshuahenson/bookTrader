@@ -94,7 +94,7 @@ export function deleteBookRequest(bookId) {
   return (dispatch) => {
     return axios.delete(`/getBook/${bookId}`)
     .then(() => {
-      dispatch(push('/'));// TODO: push to dashboard when implemented
+      dispatch(push('/dashboard'));
       dispatch(deleteBook(bookId));
     })
     .catch(() => {

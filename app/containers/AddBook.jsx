@@ -12,14 +12,14 @@ const validate = (values) => {
   return errors;
 };
 
-// TODO: Generalize wording about title or add multiple fields for different search types
-// TODO: split this up ?
+// FUTURE: add multiple fields for different search types (title, author, etc.)
+// FUTURE: split this up ?
 let AddBook = ({ handleSubmit, submitting, findBookRequest, searchResults, addBookRequest }) => {
   return (
     <div>
       <h2 className="text-center">Add a book</h2>
       <div className="row show-grid">
-        <p className="col-sm-8 col-sm-offset-2">Enter a title to add your book to the collection</p>
+        <p className="col-sm-8 col-sm-offset-2">Let&apos;s find books to add to your collection</p>
       </div>
       <form className="form-horizontal" onSubmit={handleSubmit(value => findBookRequest(value.title))}>
         <Field name="title" type="text" component={FormField} label="Book Title" />
@@ -34,7 +34,7 @@ let AddBook = ({ handleSubmit, submitting, findBookRequest, searchResults, addBo
           <div key={index} className="col-sm-6 col-md-4 col-lg-3 text-center book-results">
             <button
               type="button"
-              className={`btn btn-circle ${book.added ? 'btn-success' : 'btn-primary'}`}
+              className={`btn btn-circle ${book.added ? 'btn-success' : 'btn-standard'}`}
               disabled={book.added}
               onClick={() => addBookRequest(
                   book.thumbnail, book.title, (book.authors ? book.authors.join(', ') : ''), book.id

@@ -5,7 +5,7 @@ const Trades = ({ trades }) => {
   return (
     <div>
       {trades.map((trade, index) => (
-        <div key={index} className="col-sm-6 col-md-4">
+        <div key={index} className="col-sm-6 col-md-4 book-results">
           <Link to={`/trade/${trade.tradeId}`}>
             {trade.books.map((book, index) => (
               <div key={index} className="col-xs-6">

@@ -85,7 +85,7 @@ export function manualLogin(data, form) {
         setTimeout(() => {
           dispatch(dismissMessage());
         }, 3000);
-        dispatch(push('/'));
+        dispatch(push('/dashboard'));
         dispatch(stopSubmit(form, {}));
       })
       .catch((err) => {

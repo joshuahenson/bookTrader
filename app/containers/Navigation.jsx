@@ -6,7 +6,7 @@ import Navbar, { Header, Brand, Toggle, Collapse } from 'react-bootstrap/lib/Nav
 import { LinkContainer } from 'react-router-bootstrap';
 import { logOut } from '../actions/users';
 
-// TODO: Work on styles on NavDropdown
+// FUTURE: add user pic next to name
 const Navigation = ({ user, logOut }) => {
   return (
     <Navbar fluid>
@@ -21,12 +21,29 @@ const Navigation = ({ user, logOut }) => {
           <LinkContainer to="/about">
             <NavItem>About</NavItem>
           </LinkContainer>
-          <LinkContainer to="/books">
-            <NavItem>Books</NavItem>
-          </LinkContainer>
+          { user.authenticated ?
+            <NavDropdown title="Books" id="books-dropdown">
+              <LinkContainer to="/books">
+                <MenuItem>All Books</MenuItem>
+              </LinkContainer>
+              <LinkContainer to={`/books/${user.userId}`}>
+                <MenuItem>My Books</MenuItem>
+              </LinkContainer>
+              <LinkContainer to="/add_book">
+                <MenuItem>Add Book</MenuItem>
+              </LinkContainer>
+            </NavDropdown>
+            :
+            <LinkContainer to="/books">
+              <NavItem>Books</NavItem>
+            </LinkContainer>
+          }
         </Nav>
         { user.authenticated ?
           <Nav pullRight key="right">
+            <LinkContainer to="/dashboard">
+              <NavItem>Dashboard</NavItem>
+            </LinkContainer>
             <NavDropdown
               noCaret
               title={<span className="glyphicon glyphicon-cog" />}
@@ -34,17 +51,8 @@ const Navigation = ({ user, logOut }) => {
             >
               <MenuItem header>{user.userName}</MenuItem>
               <MenuItem divider />
-              <LinkContainer active={false} to="/add_book">
-                <MenuItem>Add Book</MenuItem>
-              </LinkContainer>
-              <LinkContainer active={false} to={`/books/${user.userId}`}>
-                <MenuItem>My Books</MenuItem>
-              </LinkContainer>
               <LinkContainer active={false} to="/profile">
                 <MenuItem>My Profile</MenuItem>
-              </LinkContainer>
-              <LinkContainer active={false} to="/dashboard">
-                <MenuItem>Dashboard</MenuItem>
               </LinkContainer>
               <MenuItem divider />
               <LinkContainer active={false} to="/">
