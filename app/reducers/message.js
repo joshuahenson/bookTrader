@@ -22,6 +22,7 @@ export default function message(state = {
       return { ...state, message: '', type: '' };
     case types.LOGOUT_ERROR_USER:
     case types.GENERAL_ERROR_MESSAGE:
+    case types.ERROR_MESSAGE:
       return { ...state, message: action.message, type: 'danger' };
     default:
       return state;

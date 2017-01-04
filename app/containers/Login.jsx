@@ -30,7 +30,7 @@ let Login = ({ handleSubmit, submitting, toggleLoginMode, manualLogin }) => {
           </a>
         </div>
       </div>
-      <form className="form-horizontal" onSubmit={handleSubmit(values => manualLogin(values, 'login'))}>
+      <form className="form-horizontal" onSubmit={handleSubmit(values => manualLogin(values))}>
         <Field name="email" type="email" component={FormField} label="Email" />
         <Field name="password" type="password" component={FormField} label="Password" />
         <div className="text-center">

@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { push } from 'react-router-redux';
-import { startSubmit, stopSubmit } from 'redux-form';
-import { dismissMessage, generalErrorMessage, infoMessage } from './messages';
+import { dismissMessage, generalErrorMessage, infoMessage, errorMessage } from './messages';
 import * as types from '../types';
 
 const getMessage = res => res.response.data.message;
@@ -75,9 +74,8 @@ export function userIsNotWaiting() {
   };
 }
 
-export function manualLogin(data, form) {
+export function manualLogin(data) {
   return (dispatch) => {
-    dispatch(startSubmit(form));
     return axios.post('/login', data)
       .then((response) => {
         const { message, userName, userId, email, picture, address, requestedFrom, requestedBy, trades } = response.data;
@@ -86,18 +84,18 @@ export function manualLogin(data, form) {
           dispatch(dismissMessage());
         }, 3000);
         dispatch(push('/dashboard'));
-        dispatch(stopSubmit(form, {}));
       })
       .catch((err) => {
-        dispatch(stopSubmit(form, { _error: getMessage(err) }));
+        dispatch(errorMessage(getMessage(err)));
+        setTimeout(() => {
+          dispatch(dismissMessage());
+        }, 5000);
       });
   };
 }
 
-export function signUp(data, form) {
+export function signUp(data) {
   return (dispatch) => {
-    dispatch(startSubmit(form));
-
     return axios.post('/signup', data)
       .then((response) => {
         const { message, userName, userId, email } = response.data;
@@ -106,18 +104,19 @@ export function signUp(data, form) {
           dispatch(dismissMessage());
         }, 3000);
         dispatch(push('/'));
-        dispatch(stopSubmit(form, {}));
       })
       .catch((err) => {
-        dispatch(stopSubmit(form, { _error: getMessage(err) }));
+        dispatch(errorMessage(getMessage(err)));
+        setTimeout(() => {
+          dispatch(dismissMessage());
+        }, 5000);
       });
   };
 }
 
 // this isn't very restful
-export function updateProfile(values, form) {
+export function updateProfile(values) {
   return (dispatch) => {
-    dispatch(startSubmit(form));
     return axios.post('/updateprofile', values)
       .then((response) => {
         const { userName, email, address } = response.data;
@@ -125,11 +124,13 @@ export function updateProfile(values, form) {
         setTimeout(() => {
           dispatch(dismissMessage());
         }, 3000);
-        // dispatch(push('/'));
-        dispatch(stopSubmit(form, {}));
+        dispatch(push('/dashboard'));
       })
-      .catch((err) => {
-        dispatch(stopSubmit(form, { _error: getMessage(err) }));
+      .catch(() => {
+        dispatch(generalErrorMessage());
+        setTimeout(() => {
+          dispatch(dismissMessage());
+        }, 5000);
       });
   };
 }

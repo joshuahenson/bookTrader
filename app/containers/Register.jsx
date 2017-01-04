@@ -33,7 +33,7 @@ let Register = ({ error, handleSubmit, submitting, toggleLoginMode, signUp }) =>
           </a>
         </div>
       </div>
-      <form className="form-horizontal" onSubmit={handleSubmit(values => signUp(values, 'register'))}>
+      <form className="form-horizontal" onSubmit={handleSubmit(values => signUp(values))}>
         <Field name="name" type="name" component={FormField} label="Name" />
         <Field name="email" type="email" component={FormField} label="Email" />
         <Field name="password" type="password" component={FormField} label="Password" />

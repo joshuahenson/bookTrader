@@ -41,7 +41,7 @@ let Profile = ({ error, handleSubmit, submitting, updateProfile, pristine }) => 
       <div className="text-center">
         <h2>Profile</h2>
       </div>
-      <form className="form-horizontal" onSubmit={handleSubmit(values => updateProfile(values, 'profile'))}>
+      <form className="form-horizontal" onSubmit={handleSubmit(values => updateProfile(values))}>
         <Field name="name" type="name" component={FormField} label="Name" />
         <Field name="email" type="email" component={FormField} label="Email" />
         <Field name="street" type="street" component={FormField} label="Street" />

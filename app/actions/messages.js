@@ -18,6 +18,13 @@ export function infoMessage(message) {
   };
 }
 
+export function errorMessage(message) {
+  return {
+    type: types.ERROR_MESSAGE,
+    message
+  };
+}
+
 export function generalErrorMessage() {
   return {
     type: types.GENERAL_ERROR_MESSAGE,
