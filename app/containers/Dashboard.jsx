@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import Books from '../components/Books';
 import Trades from '../components/Trades';
 import { addSelectedBook, findTrade } from '../actions/books';
@@ -25,6 +26,11 @@ const Dashboard = ({ user, addSelectedBook, findTrade, denyTradeRequest }) => {
           <h3>You have completed the following trades</h3>
           <Trades trades={user.trades} />
         </div>
+      }
+      { !user.requestedBy.length && !user.requestedFrom.length && !user.trades.length &&
+        <Link to={'/books'}>
+          Let&apos;s find a trade
+        </Link>
       }
 
 
