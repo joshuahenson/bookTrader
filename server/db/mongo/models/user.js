@@ -53,7 +53,14 @@ const UserSchema = new mongoose.Schema({
           title: String,
           author: String,
           thumbnail: String,
-          userId: String
+          userId: String,
+          name: String,
+          address: {
+            street: String,
+            city: String,
+            state: String,
+            zip: String
+          }
         }
       ]
     }

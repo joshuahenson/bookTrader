@@ -34,8 +34,17 @@ const TradeDetail = ({ user, params }) => {
           <h6>{otherBook.author}</h6>
         </div>
       </div>
-      <div>
-        Address or other info here
+      <p>
+        Please send your book to:
+      </p>
+      <div className="row text-left">
+        <div className="col-xs-offset-1 col-sm-offset-4 col-sm-4">
+          <p>
+            {otherBook.name}<br />
+            {otherBook.address.street}<br />
+            {`${otherBook.address.city}, ${otherBook.address.state} ${otherBook.address.zip}`}
+          </p>
+        </div>
       </div>
     </div>
   );

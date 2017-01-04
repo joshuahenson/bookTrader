@@ -114,8 +114,6 @@ export function proposeTrade(req, res) {
 
 export function acceptTrade(req, res) {
   const { book, findTrade } = req.body;
-  // book belongs to proposer that acceptor is choosing to trade his book for
-  // findTrade is book that was originally proposed for trade
   // yeah, I really need to come up with better descriptors for people and books
   const { tradeId } = findTrade;
   const trade = {
@@ -133,20 +131,26 @@ export function acceptTrade(req, res) {
         title: findTrade.title,
         author: findTrade.author,
         thumbnail: findTrade.thumbnail,
-        userId: findTrade.userId
+        userId: findTrade.userId,
+        name: req.user.name,
+        address: req.user.address
       }
     ]
   };
-  task.update('users', { _id: book.userId }, { $pull: { requestedFrom: { tradeId } }, $push: { trades: trade } }) // remove requestor's request
-    .update('users', { _id: req.user._id }, { $pull: { requestedBy: { tradeId } }, $push: { trades: trade } }) // remove from book owner
-    .run()
-    .then(() => {
-      res.json(trade);
-    })
-    .catch((err) => {
-      res.status(500).end();
-      console.log(err);
-    });
+  User.findById(book.userId, (err, doc) => {
+    trade.books[0].name = doc.name;
+    trade.books[0].address = doc.address;
+    task.update('users', { _id: book.userId }, { $pull: { requestedFrom: { tradeId } }, $push: { trades: trade } }) // remove requestor's request
+      .update('users', { _id: req.user._id }, { $pull: { requestedBy: { tradeId } }, $push: { trades: trade } }) // remove from book owner
+      .run()
+      .then(() => {
+        res.json(trade);
+      })
+      .catch((err) => {
+        res.status(500).end();
+        console.log(err);
+      });
+  });
 }
 
 export function cancelProposal(req, res) {
