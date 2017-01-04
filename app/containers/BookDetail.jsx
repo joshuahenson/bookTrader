@@ -56,7 +56,7 @@ const BookDetail = ({ book, userId, deleteBookRequest, proposeTradeRequest, find
             <Link to={`/books/${book.userId}`} className="btn btn-default" style={{ margin: 10 }}>
               View all user&apos;s books
             </Link>
-            {renderTradeButton(proposeTradeRequest, book, userId, findTrade, requestedFrom, acceptTradeRequest, address, cancelProposalRequest)}
+            {userId && renderTradeButton(proposeTradeRequest, book, userId, findTrade, requestedFrom, acceptTradeRequest, address, cancelProposalRequest)}
           </div>
       }
     </div>
