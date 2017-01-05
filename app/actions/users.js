@@ -170,12 +170,15 @@ export function proposeTradeRequest(book, address) {
     return addressRequired();
   }
   return (dispatch) => {
+    dispatch(userIsWaiting());
     return axios.post('/proposeTrade', { book })
       .then((res) => {
+        dispatch(userIsNotWaiting());
         dispatch(proposeTrade(res.data));
         dispatch(push('/dashboard'));
       })
       .catch(() => {
+        dispatch(userIsNotWaiting());
         dispatch(generalErrorMessage());
         setTimeout(() => {
           dispatch(dismissMessage());
@@ -223,12 +226,15 @@ export function cancelProposal(bookId) {
 
 export function cancelProposalRequest(bookId, ownerId) {
   return (dispatch) => {
+    dispatch(userIsWaiting());
     return axios.post('/cancelProposal', { bookId, ownerId })
       .then(() => {
+        dispatch(userIsNotWaiting());
         dispatch(cancelProposal(bookId));
         dispatch(push('/dashboard'));
       })
       .catch(() => {
+        dispatch(userIsNotWaiting());
         dispatch(generalErrorMessage());
         setTimeout(() => {
           dispatch(dismissMessage());

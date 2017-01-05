@@ -4,38 +4,38 @@ import { Link } from 'react-router';
 import { getBookRequest, deleteBookRequest } from '../actions/books';
 import { proposeTradeRequest, acceptTradeRequest, cancelProposalRequest } from '../actions/users';
 
-const renderTradeButton = (proposeTradeRequest, book, userId, findTrade, requestedFrom, acceptTradeRequest, address, cancelProposalRequest) => {
+const renderTradeButton = (proposeTradeRequest, book, userId, findTrade, requestedFrom, acceptTradeRequest, address, cancelProposalRequest, isWaiting) => {
   if (findTrade.requestorId === book.userId) {
     return (
       <button
-        type="button" className="btn btn-primary" style={{ margin: 10 }}
+        type="button" className="btn btn-primary" disabled={isWaiting} style={{ margin: 10 }}
         onClick={() => acceptTradeRequest(book, findTrade, address)}
       >
-        Accept trade
+        {isWaiting ? 'Accepting trade' : 'Accept trade'}
       </button>
     );
   }
   if (requestedFrom.find(title => title._id === book._id)) {
     return (
       <button
-        type="button" className="btn btn-danger" style={{ margin: 10 }}
+        type="button" className="btn btn-danger" disabled={isWaiting} style={{ margin: 10 }}
         onClick={() => cancelProposalRequest(book._id, book.userId)}
       >
-        Cancel proposed trade
+        {isWaiting ? 'Cancelling proposed trade' : 'Cancel proposed trade'}
       </button>
     );
   }
   return (
     <button
-      type="button" className="btn btn-primary" style={{ margin: 10 }}
+      type="button" className="btn btn-primary" disabled={isWaiting} style={{ margin: 10 }}
       onClick={() => proposeTradeRequest(book, address)}
     >
-      Propose trade
+      {isWaiting ? 'Proposing trade' : 'Propose trade'}
     </button>
   );
 };
 
-const BookDetail = ({ book, userId, deleteBookRequest, proposeTradeRequest, findTrade, requestedFrom, acceptTradeRequest, address, cancelProposalRequest }) => {
+const BookDetail = ({ book, userId, deleteBookRequest, proposeTradeRequest, findTrade, requestedFrom, acceptTradeRequest, address, cancelProposalRequest, isWaiting }) => {
   const cover = book.thumbnail.replace('zoom=1', 'zoom=2').replace('&edge=curl', '');
   return (
     <div className="text-center">
@@ -45,17 +45,17 @@ const BookDetail = ({ book, userId, deleteBookRequest, proposeTradeRequest, find
       {
         userId === book.userId ?
           <button
-            type="button" className="btn btn-danger" style={{ margin: 10 }}
+            type="button" className="btn btn-danger" disabled={isWaiting} style={{ margin: 10 }}
             onClick={() => deleteBookRequest(book._id)}
           >
-            Remove your book
+            {isWaiting ? 'Removing your book' : 'Remove your book'}
           </button>
         :
           <div>
             <Link to={`/books/${book.userId}`} className="btn btn-default" style={{ margin: 10 }}>
               View all user&apos;s books
             </Link>
-            {userId && renderTradeButton(proposeTradeRequest, book, userId, findTrade, requestedFrom, acceptTradeRequest, address, cancelProposalRequest)}
+            {userId && renderTradeButton(proposeTradeRequest, book, userId, findTrade, requestedFrom, acceptTradeRequest, address, cancelProposalRequest, isWaiting)}
           </div>
       }
     </div>
@@ -83,7 +83,8 @@ function mapStateToProps(state) {
     userId: state.user.userId,
     findTrade: state.books.findTrade,
     requestedFrom: state.user.requestedFrom,
-    address: state.user.address
+    address: state.user.address,
+    isWaiting: state.user.isWaiting
   };
 }
 
