@@ -18,11 +18,8 @@ let AddBook = ({ handleSubmit, submitting, findBookRequest, searchResults, addBo
   return (
     <div>
       <h2 className="text-center">Add a book</h2>
-      <div className="row show-grid">
-        <p className="col-sm-8 col-sm-offset-2">Let&apos;s find books to add to your collection</p>
-      </div>
       <form className="form-horizontal" onSubmit={handleSubmit(value => findBookRequest(value.title))}>
-        <Field name="title" type="text" component={FormField} label="Book Title" />
+        <Field name="title" type="text" component={FormField} label="Book Title or Author" />
         <div className="text-center">
           <button type="submit" className="btn btn-primary btn-lg" style={{ margin: 10 }} disabled={submitting}>
             {submitting ? <i className="fa fa-circle-o-notch fa-spin" /> : <i className="fa fa-search" />} Search

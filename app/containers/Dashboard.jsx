@@ -28,9 +28,16 @@ const Dashboard = ({ user, addSelectedBook, findTrade, denyTradeRequest }) => {
         </div>
       }
       { !user.requestedBy.length && !user.requestedFrom.length && !user.trades.length &&
-        <Link to={'/books'}>
-          Let&apos;s find a trade
-        </Link>
+        <p>
+          Let&apos;s&nbsp;
+          <Link to={`/books/excluding/${user.userId}`}>
+            find a trade&nbsp;
+          </Link>
+          or&nbsp;
+          <Link to={'/add_book'}>
+            add a book
+          </Link>
+        </p>
       }
 
 
