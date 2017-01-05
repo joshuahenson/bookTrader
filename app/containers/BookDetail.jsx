@@ -35,7 +35,6 @@ const renderTradeButton = (proposeTradeRequest, book, userId, findTrade, request
   );
 };
 
-// TODO: Prevent duplicate trade proposals
 const BookDetail = ({ book, userId, deleteBookRequest, proposeTradeRequest, findTrade, requestedFrom, acceptTradeRequest, address, cancelProposalRequest }) => {
   const cover = book.thumbnail.replace('zoom=1', 'zoom=2').replace('&edge=curl', '');
   return (

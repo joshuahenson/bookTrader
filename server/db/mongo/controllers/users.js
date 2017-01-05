@@ -91,7 +91,6 @@ export function updateProfile(req, res) {
   });
 }
 
-// TODO: send 409 on duplicate or client side disable button?
 export function proposeTrade(req, res) {
   const { book } = req.body;
   book.tradeId = shortid.generate();

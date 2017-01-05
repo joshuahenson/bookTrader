@@ -39,14 +39,9 @@ const Dashboard = ({ user, addSelectedBook, findTrade, denyTradeRequest }) => {
           </Link>
         </p>
       }
-
-
     </div>
   );
 };
-
-// Data that needs to be called before rendering the component on the server side.
-// TODO: Dashboard.need??
 
 Dashboard.propTypes = {
   user: PropTypes.object.isRequired,

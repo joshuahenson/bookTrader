@@ -34,7 +34,7 @@ const validate = (values) => {
   return errors;
 };
 
-// TODO: Use object-diff to send only dirty values?
+// FUTURE: Use object-diff to send only dirty values?
 let Profile = ({ error, handleSubmit, submitting, updateProfile, pristine }) => {
   return (
     <div>

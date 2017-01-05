@@ -8,7 +8,6 @@ const TradeDetail = ({ user, params }) => {
   const userBook = books[userIndex];
   const otherBook = books[otherIndex];
 
-  // TODO: add address
   // FUTURE: extract individual book detail to separate component
   return (
     <div className="text-center">

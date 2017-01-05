@@ -175,15 +175,11 @@ export function proposeTradeRequest(book, address) {
         dispatch(proposeTrade(res.data));
         dispatch(push('/dashboard'));
       })
-      .catch((error) => {
-        if (error.response.status === 409) {
-          console.log('Duplicate'); // TODO: message action if implemented
-        } else {
-          dispatch(generalErrorMessage());
-          setTimeout(() => {
-            dispatch(dismissMessage());
-          }, 5000);
-        }
+      .catch(() => {
+        dispatch(generalErrorMessage());
+        setTimeout(() => {
+          dispatch(dismissMessage());
+        }, 5000);
       });
   };
 }
