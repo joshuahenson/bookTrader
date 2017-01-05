@@ -29,6 +29,9 @@ const Navigation = ({ user, logOut }) => {
               <LinkContainer to={`/books/${user.userId}`}>
                 <MenuItem>My Books</MenuItem>
               </LinkContainer>
+              <LinkContainer to={`/books/excluding/${user.userId}`}>
+                <MenuItem>Other&apos;s Books</MenuItem>
+              </LinkContainer>
               <LinkContainer to="/add_book">
                 <MenuItem>Add Book</MenuItem>
               </LinkContainer>

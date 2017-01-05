@@ -7,6 +7,9 @@ const BooksContainer = ({ books, params, addSelectedBook }) => {
   if (params.user) {
     return <Books books={books.filter(book => book.userId === params.user)} handleClick={addSelectedBook} title />;
   }
+  if (params.excluding) {
+    return <Books books={books.filter(book => book.userId !== params.excluding)} handleClick={addSelectedBook} title />;
+  }
   return <Books books={books} handleClick={addSelectedBook} title />;
 };
 
