@@ -1,5 +1,3 @@
-# Work in Progress
-
 A sample Universal React app to further my dev skills while implementing the following user stories.
 
 * User Story: I can view all books posted by every user.
