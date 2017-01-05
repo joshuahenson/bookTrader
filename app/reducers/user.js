@@ -166,6 +166,8 @@ const requestedBy = (
     case types.ACCEPT_TRADE:
     case types.DENY_TRADE:
       return state.filter(trade => action.tradeId !== trade.tradeId);
+    case types.DELETE_BOOK:
+      return state.filter(trade => trade._id !== action.id);
     default:
       return state;
   }

@@ -28,7 +28,7 @@ const UserSchema = new mongoose.Schema({
     zip: String
   },
   requestedFrom: [{
-    bookId: String,
+    _id: String,
     title: String,
     author: String,
     thumbnail: String,
@@ -36,7 +36,7 @@ const UserSchema = new mongoose.Schema({
     tradeId: String
   }],
   requestedBy: [{
-    bookId: String,
+    _id: String,
     title: String,
     author: String,
     thumbnail: String,

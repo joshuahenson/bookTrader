@@ -1,12 +1,8 @@
 import shortid from 'shortid';
 import passport from 'passport';
 import sanitizeHtml from 'sanitize-html';
-import mongoose from 'mongoose';
-import Fawn from 'fawn';
 import User from '../models/user';
-
-Fawn.init(mongoose);
-const task = Fawn.Task();
+import task from '../fawnTask';
 
 /**
  * POST /login

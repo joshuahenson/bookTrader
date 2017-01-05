@@ -1,5 +1,7 @@
 import { search } from 'google-books-search';
 import Book from '../models/book';
+import User from '../models/user';
+import task from '../fawnTask';
 
 export function getBooks(req, res) {
   Book.find().exec((err, books) => {
@@ -43,11 +45,31 @@ export function getBook(req, res) {
 }
 
 export function deleteBook(req, res) {
-  Book.findOneAndRemove({ _id: req.params.id, userId: req.user._id }, (err) => {
+  // See if there are any pending trades
+  User.findOne({ _id: req.user._id }, { requestedBy: { $elemMatch: { _id: req.params.id } } }, (err, docElem) => {
     if (err) {
       res.status(500).send(err);
-    } else {
-      res.status(200).end();
+    }
+    if (docElem) { // Remove pending trades and book.
+      task.remove('books', { _id: req.params.id, userId: req.user._id })
+      .update('users', { _id: req.user._id }, { $pull: { requestedBy: { _id: req.params.id } } })
+      .update('users', { _id: docElem.requestedBy[0].requestorId }, { $pull: { requestedFrom: { _id: req.params.id } } })
+        .run()
+        .then(() => {
+          res.status(200).end();
+        })
+        .catch((err) => {
+          console.log(err);
+          res.status(500).end();
+        });
+    } else { // No pending trades so we'll just remove the book
+      Book.findOneAndRemove({ _id: req.params.id, userId: req.user._id }, (err) => {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.status(200).end();
+        }
+      });
     }
   });
 }
