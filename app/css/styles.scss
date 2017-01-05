@@ -48,6 +48,25 @@
 //   border-radius: 35px;
 // }
 
+.navbar-default {
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.book-bg {
+  img {
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -999;
+  }
+
+  .well {
+    background-color: rgba(255, 255, 255, 0.7);
+  }
+}
+
 @media (min-width: 768px) {
   .vertical-align-sm {
     display: flex;
