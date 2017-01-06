@@ -53,6 +53,8 @@ const findTrade = (state = {}, action) => {
   switch (action.type) {
     case types.FIND_TRADE:
       return action.book;
+    case types.ACCEPT_TRADE:
+      return {};
     default:
       return state;
   }
