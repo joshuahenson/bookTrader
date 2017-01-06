@@ -46,22 +46,27 @@ export function getBook(req, res) {
 
 export function deleteBook(req, res) {
   // See if there are any pending trades
-  User.findOne({ _id: req.user._id }, { requestedBy: { $elemMatch: { _id: req.params.id } } }, (err, docElem) => {
+  User.findOne({ _id: req.user._id, requestedBy: { $elemMatch: { _id: req.params.id } } }, (err, doc) => {
     if (err) {
       res.status(500).send(err);
     }
-    if (docElem) { // Remove pending trades and book.
-      task.remove('books', { _id: req.params.id, userId: req.user._id })
-      .update('users', { _id: req.user._id }, { $pull: { requestedBy: { _id: req.params.id } } })
-      .update('users', { _id: docElem.requestedBy[0].requestorId }, { $pull: { requestedFrom: { _id: req.params.id } } })
-        .run()
-        .then(() => {
-          res.status(200).end();
-        })
-        .catch((err) => {
-          console.log(err);
-          res.status(500).end();
-        });
+    if (doc) { // Remove pending trades and book.
+      // find all requests that contain the book to be removed
+      const requests = doc.requestedBy.filter(r => r._id === req.params.id);
+      task.remove(Book, { _id: req.params.id, userId: req.user._id });
+      task.update(User, { _id: req.user._id }, { $pull: { requestedBy: { _id: req.params.id } } });
+      // loop over all requests for user's book and remove from other user's doc
+      requests.forEach((request) => {
+        task.update(User, { _id: request.requestorId }, { $pull: { requestedFrom: { _id: req.params.id } } });
+      });
+      task.run()
+      .then(() => {
+        res.status(200).end();
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).end();
+      });
     } else { // No pending trades so we'll just remove the book
       Book.findOneAndRemove({ _id: req.params.id, userId: req.user._id }, (err) => {
         if (err) {

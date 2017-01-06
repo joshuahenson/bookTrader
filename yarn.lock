@@ -2467,9 +2467,9 @@ fastparse@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/fastparse/-/fastparse-1.1.1.tgz#d1e2643b38a94d7583b479060e6c4affc94071f8"
 
-fawn@^0.0.8:
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/fawn/-/fawn-0.0.8.tgz#3dad37c8101b968c10371fa19e3647acb0088c83"
+fawn@^0.0.9:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/fawn/-/fawn-0.0.9.tgz#4e2cedcfc1f6411e78c5ee213696830a4045f85d"
   dependencies:
     bluebird "3.4.1"
     mongoose "4.5.1"
