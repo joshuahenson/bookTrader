@@ -33,6 +33,8 @@ const searchResults = (state = [], action) => {
       return action.results;
     case types.ADD_BOOK:
       return state.map(result => updateSearchResults(result, action));
+    case types.NO_BOOKS_FOUND:
+      return [];
     default:
       return state;
   }

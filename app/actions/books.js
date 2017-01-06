@@ -23,6 +23,13 @@ export function getBooks() {
   };
 }
 
+export function noBooksFound() {
+  return {
+    type: types.NO_BOOKS_FOUND,
+    message: 'No results found.'
+  };
+}
+
 export function displayBookSearch(results) {
   return {
     type: types.DISPLAY_BOOK_SEARCH,
@@ -33,7 +40,16 @@ export function displayBookSearch(results) {
 export function findBookRequest(title) {
   return (dispatch) => {
     return axios.post('/findBook', { title })
-      .then(res => dispatch(displayBookSearch(res.data.results)))
+      .then((res) => {
+        if (res.status === 204) {
+          dispatch(noBooksFound());
+          setTimeout(() => {
+            dispatch(dismissMessage());
+          }, 3000);
+        } else {
+        dispatch(displayBookSearch(res.data.results));
+        }
+      })
       .catch(() => {
         dispatch(generalErrorMessage());
         setTimeout(() => {

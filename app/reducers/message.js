@@ -17,6 +17,7 @@ export default function message(state = {
     case types.GENERAL_MESSAGE:
       return { ...state, message: action.message, type: 'success' };
     case types.INFO_MESSAGE:
+    case types.NO_BOOKS_FOUND:
       return { ...state, message: action.message, type: 'info' };
     case types.DISMISS_MESSAGE:
       return { ...state, message: '', type: '' };

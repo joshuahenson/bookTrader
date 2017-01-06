@@ -18,11 +18,15 @@ export function findBook(req, res) {
     if (err) {
       console.error(err);
     }
-    const results = rawResults.map((book) => {
-      const newBook = Object.assign({}, book, { thumbnail: book.thumbnail.replace('http', 'https') });
-      return newBook;
-    });
-    res.json({ results });
+    if (rawResults) {
+      const results = rawResults.map((book) => {
+        const newBook = Object.assign({}, book, { thumbnail: book.thumbnail.replace('http', 'https') });
+        return newBook;
+      });
+      res.json({ results });
+    } else {
+      res.status(204).end();
+    }
   });
 }
 
