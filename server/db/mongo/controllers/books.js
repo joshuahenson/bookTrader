@@ -14,10 +14,14 @@ export function getBooks(req, res) {
 
 // google books api search
 export function findBook(req, res) {
-  search(req.body.title, (err, results) => {
+  search(req.body.title, (err, rawResults) => {
     if (err) {
       console.error(err);
     }
+    const results = rawResults.map((book) => {
+      const newBook = Object.assign({}, book, { thumbnail: book.thumbnail.replace('http', 'https') });
+      return newBook;
+    });
     res.json({ results });
   });
 }
