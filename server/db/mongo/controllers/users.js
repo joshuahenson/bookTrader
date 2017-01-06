@@ -95,8 +95,8 @@ export function proposeTrade(req, res) {
   const { book } = req.body;
   book.tradeId = shortid.generate();
   const requestorBook = Object.assign({}, book, { requestorId: req.user._id });
-  task.update('users', { _id: book.userId }, { $push: { requestedBy: requestorBook } })
-    .update('users', { _id: req.user._id }, { $push: { requestedFrom: book } })
+  task.update(User, { _id: book.userId }, { $push: { requestedBy: requestorBook } })
+    .update(User, { _id: req.user._id }, { $push: { requestedFrom: book } })
     .run()
     .then(() => {
       res.json(book);
@@ -135,8 +135,8 @@ export function acceptTrade(req, res) {
   User.findById(book.userId, (err, doc) => {
     trade.books[0].name = doc.name;
     trade.books[0].address = doc.address;
-    task.update('users', { _id: book.userId }, { $pull: { requestedFrom: { tradeId } }, $push: { trades: trade } }) // remove requestor's request
-      .update('users', { _id: req.user._id }, { $pull: { requestedBy: { tradeId } }, $push: { trades: trade } }) // remove from book owner
+    task.update(User, { _id: book.userId }, { $pull: { requestedFrom: { tradeId } }, $push: { trades: trade } }) // remove requestor's request
+      .update(User, { _id: req.user._id }, { $pull: { requestedBy: { tradeId } }, $push: { trades: trade } }) // remove from book owner
       .run()
       .then(() => {
         res.json(trade);
@@ -150,8 +150,8 @@ export function acceptTrade(req, res) {
 
 export function cancelProposal(req, res) {
   const { bookId, ownerId } = req.body;
-  task.update('users', { _id: ownerId }, { $pull: { requestedBy: { _id: bookId } } })
-    .update('users', { _id: req.user._id }, { $pull: { requestedFrom: { _id: bookId } } })
+  task.update(User, { _id: ownerId }, { $pull: { requestedBy: { _id: bookId } } })
+    .update(User, { _id: req.user._id }, { $pull: { requestedFrom: { _id: bookId } } })
     .run()
     .then(() => {
       res.status(200).end();
@@ -165,8 +165,8 @@ export function cancelProposal(req, res) {
 // FUTURE: alert other user or store denied trades.
 export function denyTrade(req, res) {
   const { tradeId, requestorId } = req.body;
-  task.update('users', { _id: req.user._id }, { $pull: { requestedBy: { tradeId } } })
-    .update('users', { _id: requestorId }, { $pull: { requestedFrom: { tradeId } } })
+  task.update(User, { _id: req.user._id }, { $pull: { requestedBy: { tradeId } } })
+    .update(User, { _id: requestorId }, { $pull: { requestedFrom: { tradeId } } })
     .run()
     .then(() => {
       res.status(200).end();
